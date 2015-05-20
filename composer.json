@@ -1,0 +1,33 @@
+{
+    "name": "heimrichhannot/contao-banner_plus",
+    "description":"Improvements to BugBuster/Banner module.",
+    "keywords":["contao", "banner", "pagefilter"],
+    "type": "contao-module",
+    "homepage":"https://github.com/heimrichhannot/contao-banner_plus",
+    "license":"LGPL-3.0+",
+    "authors":[
+        {
+            "name":"Heimrich & Hannot",
+            "email":"digitales@heimrich-hannot.de",
+            "homepage":"http://www.heimrich-hannot.de",
+            "role":"Developer"
+        }
+    ],
+    "support":{
+        "issues":"https://github.com/heimrichhannot/contao-banner_plus/issues"
+    },
+    "require": {
+        "contao/core": ">=3.3,<4-dev",
+	"bugbuster/banner": ">=3.5,<3.6-dev",
+    },
+    "autoload": {
+        "classmap": [""]
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "": "system/modules/banner_plus"
+            }
+        }
+    }
+}
