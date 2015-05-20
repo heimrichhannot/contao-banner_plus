@@ -18,7 +18,7 @@
     },
     "require": {
         "contao/core": ">=3.3,<4-dev",
-	"bugbuster/banner": ">=3.5,<3.6-dev",
+	"bugbuster/banner": ">=3.5,<3.6-dev"
     },
     "autoload": {
         "classmap": [""]
