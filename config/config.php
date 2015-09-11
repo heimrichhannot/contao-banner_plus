@@ -25,3 +25,11 @@ if(is_array($GLOBALS['TL_HOOKS']['replaceInsertTags']))
 		}
 	}
 }
+
+/**
+ * Add support to slick slider for parorama ads
+ */
+if(in_array('slick', \ModuleLoader::getActive()))
+{
+	$GLOBALS['TL_HOOKS']['compileSlickNewsList'][] = array('HeimrichHannot\Banner\Hooks', 'compileSlickNewsListHook');
+}

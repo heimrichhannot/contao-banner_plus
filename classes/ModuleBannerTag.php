@@ -15,6 +15,47 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 {
 
 	/**
+	 * Wrapper for backward compatibility
+	 *
+	 * @param integer $moduleId
+	 * @return boolean
+	 */
+	protected function getModuleData($moduleId)
+	{
+		$this->module_id = $moduleId; //for RandomBlocker Session
+		//DEBUG log_message('getModuleData Banner Modul ID:'.$moduleId,'Banner.log');
+		$objBannerModule = \Database::getInstance()->prepare("SELECT
+                                                                    banner_hideempty,
+                                                        	        banner_firstview,
+                                                        	        banner_categories,
+                                                        	        banner_template,
+                                                        	        banner_redirect,
+                                                        	        banner_useragent,
+                                                                    cssID,
+                                                                    space,
+                                                                    headline
+                                                                FROM
+                                                                    tl_module
+                                                                WHERE
+                                                                    id=? AND banner_categories !=''")
+			->execute($moduleId);
+		if ($objBannerModule->numRows == 0)
+		{
+			return false;
+		}
+		$this->banner_hideempty  = $objBannerModule->banner_hideempty;
+		$this->banner_firstview  = $objBannerModule->banner_firstview;
+		$this->banner_categories = $objBannerModule->banner_categories;
+		$this->banner_template   = $objBannerModule->banner_template;
+		$this->banner_redirect   = $objBannerModule->banner_redirect;
+		$this->banner_useragent  = $objBannerModule->banner_useragent;
+		$this->cssID             = $objBannerModule->cssID;
+		$this->space             = $objBannerModule->space;
+		$this->headline          = $objBannerModule->headline;
+		return true;
+	}
+
+	/**
 	 * Overwrite BugBuster\Banner\BannerHelper::getSetAllBannerForCategory()
 	 * to provide custom logic
 	 * - add page filter
