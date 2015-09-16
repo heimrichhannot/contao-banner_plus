@@ -14,6 +14,113 @@ namespace HeimrichHannot\Banner;
 class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 {
 
+	public function compileSlickNewsListHook(&$objTemplate, $objModule, $objModel)
+	{
+		$this->getModuleData($objModule->id);
+
+		if($this->bannerHelperInit() === false)
+		{
+			$this->log('Problem in Bannerhelper::bannerHelperInit', 'HeimrichHannot\Banner\Hooks compileSlickNewsListHook', TL_ERROR);
+			return false;
+		}
+
+		$this->typePrefix = 'mod_';
+		$this->class = 'mod_banner';
+
+		$this->article_class = $this->class[1];
+		$this->article_cssID = $this->cssID[0];
+		$this->article_style = $this->style;
+
+		if ($this->statusBannerFrontendGroupView === false)
+		{
+			// Eingeloggter FE Nutzer darf nichts sehen, falsche Gruppe
+			return false;
+		}
+
+		$this->Template = new \FrontendTemplate($this->strTemplate);
+
+		if ($this->statusAllBannersBasic === false)
+		{
+			//keine Banner vorhanden in der Kategorie
+			//default Banner holen
+			//kein default Banner, ausblenden wenn leer?
+			$this->getDefaultBanner();
+		}
+
+		//OK, Banner vorhanden, dann weiter
+		//BannerSeen vorhanden? Dann beachten.
+		if ( count(self::$arrBannerSeen) )
+		{
+			//$arrAllBannersBasic dezimieren um die bereits angezeigten
+			foreach (self::$arrBannerSeen as $BannerSeenID)
+			{
+				if (array_key_exists($BannerSeenID,$this->arrAllBannersBasic))
+				{
+					unset($this->arrAllBannersBasic[$BannerSeenID]);
+				};
+			}
+			//noch Banner übrig?
+			if ( count($this->arrAllBannersBasic) == 0 )
+			{
+				//default Banner holen
+				//kein default Banner, ausblenden wenn leer?
+				$this->setCssClassIdStyle();
+			}
+		}
+
+		//OK, noch Banner übrig, weiter gehts
+		//Single Banner?
+		if ($this->arrCategoryValues['banner_numbers'] != 1)
+		{
+			//FirstViewBanner?
+			if ($this->getSetFirstView() === true)
+			{
+				$this->getSingleBannerFirst();
+			}
+			else
+			{
+				//single banner
+				$this->getSingleBanner();
+			}
+		}
+		else
+		{
+			//multi banner
+			$this->getMultiBanner();
+		}
+
+		$arrArticles = $objTemplate->articles;
+		$arrBanners = $this->Template->banners;
+		$arrBannerWeight = $this->arrAllBannersBasic;
+
+		if(is_array($arrBanners))
+		{
+			foreach($arrBanners as $arrData)
+			{
+				$this->setCssClassIdStyle();
+				$this->Template->banners = array($arrData);
+				$weight = $arrBannerWeight[$arrData['banner_id']];
+				
+				switch($weight){
+					// highest priority -> prepend
+					case 1:
+						array_unshift($arrArticles, $this->Template->parse());
+					break;
+					// normal priority -> middle
+					case 2:
+						array_insert($arrArticles, ceil(count($arrArticles) / 2), array($this->Template->parse()));
+					break;
+					// lowest priority -> append
+					case 3:
+						array_insert($arrArticles, count($arrArticles), array($this->Template->parse()));
+					break;
+				}
+			}
+		}
+		
+		$objTemplate->articles = $arrArticles;
+	}
+
 	/**
 	 * Wrapper for backward compatibility
 	 *

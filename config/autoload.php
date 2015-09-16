@@ -25,5 +25,4 @@ ClassLoader::addClasses(array
 (
 	// Classes
 	'HeimrichHannot\Banner\ModuleBannerTag' => 'system/modules/banner_plus/classes/ModuleBannerTag.php',
-	'HeimrichHannot\Banner\Hooks'           => 'system/modules/banner_plus/classes/Hooks.php',
 ));
