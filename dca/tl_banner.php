@@ -11,7 +11,14 @@
 
 $dc = &$GLOBALS['TL_DCA']['tl_banner'];
 
-// add fields to multiple palettes
+/**
+ * Palettes
+ */
+//$dc['palettes']['banner_image_fireplace'] = str_replace('banner_image', 'banner_image,banner_image_left,banner_image_right',$dc['palettes']['banner_image']);
+
+/**
+ * Palettes : add multiple fields
+ */
 foreach($dc['palettes'] as $strName => $strPalette)
 {
 	if($strName == '__selector__') continue;
@@ -49,6 +56,44 @@ $arrFields = array
 		'eval'      => array('tl_class' => 'm12'),
 		'sql'       => "char(1) NOT NULL default ''",
 	),
+	'banner_image_left' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_banner']['banner_image_left'],
+		'explanation'	          => 'banner_help',
+		'inputType'               => 'fileTree',
+		'sql'                     => "binary(16) NULL",
+		'eval'                    => array('files'=>true, 'filesOnly'=>true, 'fieldType'=>'radio', 'extensions'=>'jpg,jpe,gif,png,swf', 'maxlength'=>255, 'helpwizard'=>true)
+	),
+	'banner_imgSize_left' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_banner']['banner_imgSize_left'],
+		'exclude'                 => true,
+		'inputType'               => 'imageSize',
+		'options'                 => System::getImageSizes(),
+		'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+		'sql'                     => "varchar(255) NOT NULL default ''",
+		'eval'                    => array('rgxp'=>'digit', 'nospace'=>true)
+	),
+	'banner_image_right' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_banner']['banner_image_right'],
+		'explanation'	          => 'banner_help',
+		'inputType'               => 'fileTree',
+		'sql'                     => "binary(16) NULL",
+		'eval'                    => array('files'=>true, 'filesOnly'=>true, 'fieldType'=>'radio', 'extensions'=>'jpg,jpe,gif,png,swf', 'maxlength'=>255, 'helpwizard'=>true)
+	),
+	'banner_imgSize_right' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_banner']['banner_imgSize_right'],
+		'exclude'                 => true,
+		'inputType'               => 'imageSize',
+		'options'                 => System::getImageSizes(),
+		'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+		'sql'                     => "varchar(255) NOT NULL default ''",
+		'eval'                    => array('rgxp'=>'digit', 'nospace'=>true)
+	),
 );
 
 $dc['fields'] = array_merge($dc['fields'], $arrFields);
+
+$dc['palettes']['banner_image'] = str_replace('banner_imgSize', 'banner_imgSize,banner_image_left,banner_imgSize_left,banner_image_right,banner_imgSize_right', $dc['palettes']['banner_image']);

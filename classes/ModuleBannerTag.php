@@ -1,7 +1,7 @@
 <?php
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (c) 2015 Heimrich & Hannot GmbH
  * @package anwaltverein
  * @author Rico Kaltofen <r.kaltofen@heimrich-hannot.de>
@@ -36,7 +36,8 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 			// Eingeloggter FE Nutzer darf nichts sehen, falsche Gruppe
 			return false;
 		}
-
+		
+		
 		$this->Template = new \FrontendTemplate($this->strTemplate);
 
 		if ($this->statusAllBannersBasic === false)
@@ -77,7 +78,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 			{
 				$this->getSingleBannerFirst();
 			}
-			else
+			else if(!empty($this->arrAllBannersBasic))
 			{
 				//single banner
 				$this->getSingleBanner();
@@ -266,6 +267,103 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 		}
 
 		return true;
+	}
+
+	protected function getSingleBanner()
+	{
+		$blnParent = parent::getSingleBanner();
+
+		if(!is_array($this->Template->banners)) return $blnParent;
+
+		$arrBanners = $this->Template->banners;
+
+		foreach($arrBanners as $i => $arrBanner)
+		{
+			$objBanner = \BannerModel::findByPk($arrBanner['banner_id']);
+
+			if($objBanner === null) continue;
+
+			if($objBanner->banner_type != static::BANNER_TYPE_INTERN) continue;
+
+			$this->addImageData('banner_image_left', deserialize($objBanner->banner_imgSize_left), $arrBanner, $objBanner, 'left');
+			$this->addImageData('banner_image_right', deserialize($objBanner->banner_imgSize_right), $arrBanner, $objBanner, 'right');
+			
+			$arrBanners[$i] = $arrBanner;
+		}
+
+		$this->Template->banners = $arrBanners;
+	}
+
+	protected function addImageData($strKey, $arrSize=array(), &$arrBanner, $objBanner, $strSuffix = '')
+	{
+		if($objBanner->{$strKey} == '') return false;
+
+		if($strSuffix == '')
+		{
+			$strSuffix = $strKey;
+		}
+
+		$objModel = \FilesModel::findByUuid($objBanner->{$strKey});
+
+		if($objModel === null || !file_exists(TL_ROOT . '/'. $objModel->path)) return false;
+		
+		$objBannerImage = new \BugBuster\Banner\BannerImage();
+		
+		$arrImageSize = $objBannerImage->getBannerImageSize($objModel->path, $objBanner->banner_type);
+
+		$arrImageSizenNew = $objBannerImage->getBannerImageSizeNew($arrImageSize[0],$arrImageSize[1],$arrSize[0],$arrSize[1]);
+
+		$singleSRC = $objModel->path;
+
+		//if oriSize = true, oder bei GIF - 1/SWF - 4/SWC - 13 = use original path
+		if ($arrImageSizenNew[2] === true || in_array($arrImageSize[2], array(1,4,13)))
+		{
+			$arrImageSize[0] = $arrImageSizenNew[0];
+			$arrImageSize[1] = $arrImageSizenNew[1];
+			$arrImageSize[3] = ' height="'.$arrImageSizenNew[1].'" width="'.$arrImageSizenNew[0].'"';
+
+			//fake the Picture::create
+			$picture['img']   = array
+			(
+				'src'    => specialchars(ampersand($singleSRC)),
+				'width'  => $arrImageSizenNew[0],
+				'height' => $arrImageSizenNew[1],
+				'srcset' => specialchars(ampersand($singleSRC))
+			);
+			$picture['alt']   = specialchars(ampersand($objBanner->banner_name));
+			$picture['title'] = specialchars(ampersand($objBanner->banner_comment));
+			$picture['class'] = 'banner_image_' . $strSuffix;
+
+			\BugBuster\Banner\ModuleBannerLog::writeLog(__METHOD__ , __LINE__ , 'Orisize Picture ' .$strKey . ': '. print_r($picture,true));
+		}
+		else
+		{
+			$singleSRC = \Image::get($this->urlEncode($objModel->path), $arrImageSizenNew[0], $arrImageSizenNew[1],'proportional');
+
+			$picture = \Picture::create($this->urlEncode($objModel->path), array($arrImageSizenNew[0], $arrImageSizenNew[1], $arrSize[2]))->getTemplateData();
+			$picture['alt']   = specialchars(ampersand($objBanner->banner_name));
+			$picture['title'] = specialchars(ampersand($objBanner->banner_comment));
+			$picture['class'] = 'banner_image_' . $strSuffix;
+
+			\BugBuster\Banner\ModuleBannerLog::writeLog(__METHOD__ , __LINE__ , 'Resize Picture ' .$strKey . ': '. print_r($picture,true));
+
+			$arrImageSize[0] = $arrImageSizenNew[0];
+			$arrImageSize[1] = $arrImageSizenNew[1];
+			$arrImageSize[3] = ' height="'.$arrImageSizenNew[1].'" width="'.$arrImageSizenNew[0].'"';
+		}
+
+
+		switch ($arrImageSize[2]) {
+			case 1:
+			case 2:
+			case 3:
+				$arrBanner['banner_pic_' . $strSuffix] = true;
+				$arrBanner['src_' . $strSuffix] =  specialchars(ampersand($singleSRC));
+				$arrBanner['picture_' . $strSuffix] = $picture;
+				$arrBanner['size_' . $strKey] = $arrImageSize[3];
+			break;
+		}
+
 	}
 
 }

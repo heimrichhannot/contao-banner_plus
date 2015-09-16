@@ -26,3 +26,12 @@ ClassLoader::addClasses(array
 	// Classes
 	'HeimrichHannot\Banner\ModuleBannerTag' => 'system/modules/banner_plus/classes/ModuleBannerTag.php',
 ));
+
+
+/**
+ * Register the templates
+ */
+TemplateLoader::addFiles(array
+(
+	'mod_banner_list_fireplace_ad' => 'system/modules/banner_plus/templates/banner',
+));
