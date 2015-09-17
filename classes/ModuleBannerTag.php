@@ -14,6 +14,63 @@ namespace HeimrichHannot\Banner;
 class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 {
 
+	/**
+	 * Insert/Update Banner View Stat
+	 */
+	public function setStatViewUpdate()
+	{
+		if ($this->bannerCheckBot() === true)
+		{
+			return; //Bot gefunden, wird nicht gezaehlt
+		}
+		if ($this->checkUserAgent() === true)
+		{
+			return ; //User Agent Filterung
+		}
+
+		// Blocker
+		$lastBanner = array_pop($this->arrBannerData);
+		$BannerID = $lastBanner['banner_id'];
+		if ($BannerID==0)
+		{ // kein Banner, nichts zu tun
+			return;
+		}
+
+		if ( $this->getStatViewUpdateBlockerId($BannerID) === true )
+		{
+			// Eintrag innerhalb der Blockzeit
+			return; // blocken, nicht zählen, raus hier
+		}
+		else
+		{
+			// nichts geblockt, also blocken fürs den nächsten Aufrufs
+			$this->setStatViewUpdateBlockerId($BannerID);
+		}
+
+		//Zählung, Insert
+		$arrSet = array
+		(
+			'id' => $BannerID,
+			'tstamp' => time(),
+			'banner_views' => 1
+		);
+		$objInsert = \Database::getInstance()->prepare("INSERT IGNORE INTO tl_banner_stat %s")
+			->set($arrSet)
+			->executeUncached();
+		if ($objInsert->insertId == 0)
+		{
+			//Zählung, Update
+			\Database::getInstance()->prepare("UPDATE
+                                                    `tl_banner_stat`
+                                               SET
+                                                    `tstamp`=?
+                                                  , `banner_views` = `banner_views`+1
+                                               WHERE
+                                                    `id`=?")
+				->executeUncached(time(), $BannerID);
+		}
+	}
+
 	public function compileSlickNewsListHook(&$objTemplate, $objModule, $objModel)
 	{
 		$this->getModuleData($objModule->id);
@@ -30,7 +87,8 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 		$this->article_class = $this->class[1];
 		$this->article_cssID = $this->cssID[0];
 		$this->article_style = $this->style;
-
+		$this->banner_imgSize = $objModel->imgSize;
+		
 		if ($this->statusBannerFrontendGroupView === false)
 		{
 			// Eingeloggter FE Nutzer darf nichts sehen, falsche Gruppe
@@ -243,7 +301,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 		global $objPage;
 
 		$arrPages = deserialize($objBanners->pages);
-		
+
 		/**
 		 * Filter out pages
 		 * (exclude == display module not on this page)
@@ -287,10 +345,36 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 
 			$this->addImageData('banner_image_left', deserialize($objBanner->banner_imgSize_left), $arrBanner, $objBanner, 'left');
 			$this->addImageData('banner_image_right', deserialize($objBanner->banner_imgSize_right), $arrBanner, $objBanner, 'right');
+
+			// Override the default image size
+			if ($this->banner_imgSize != '')
+			{
+				$size = deserialize($this->banner_imgSize);
+
+				try
+				{
+					$src = \Image::create($arrBanner['src'], $size)->executeResize()->getResizedPath();
+					$picture = \Picture::create($arrBanner['src'], $size)->getTemplateData();
+
+					if ($src !== $arrBanner['src'])
+					{
+						$objFile = new \File(rawurldecode($src), true);
+					}
+
+					$arrBanner['picture'] = $picture;
+
+				} catch (\Exception $e)
+				{
+					\System::log('Image "' . $arrBanner['src'] . '" could not be processed: ' . $e->getMessage(), __METHOD__, TL_ERROR);
+
+					$src = '';
+					$picture = array('img'=>array('src'=>'', 'srcset'=>''), 'sources'=>array());
+				}
+			}
 			
 			$arrBanners[$i] = $arrBanner;
 		}
-
+		
 		$this->Template->banners = $arrBanners;
 	}
 
