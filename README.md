@@ -5,3 +5,4 @@ Improvements and new features to BugBuster/Banner module.
 - add better page filter, with page depth inheritance and include/except pattern
 - slick newslist support for banner to show ads inside slideshows (use priority to adjust ad position in slideshow)
 - fireplace ads, select mod_banner_list_fireplace_ad template within module config
+- media query support to track banner views only if visible by user window dimension 

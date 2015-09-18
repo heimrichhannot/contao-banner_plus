@@ -31,8 +31,16 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 		// Blocker
 		$lastBanner = array_pop($this->arrBannerData);
 		$BannerID = $lastBanner['banner_id'];
+		$arrCategory = $this->arrCategoryValues;
+
 		if ($BannerID==0)
 		{ // kein Banner, nichts zu tun
+			return;
+		}
+
+		// check if banner is visible for user by media query
+		if ($arrCategory['banner_mediaquery'] != '' && !\HeimrichHannot\MediaQuery\Viewport::matchQuery($arrCategory['banner_mediaquery']))
+		{
 			return;
 		}
 
@@ -56,7 +64,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 		);
 		$objInsert = \Database::getInstance()->prepare("INSERT IGNORE INTO tl_banner_stat %s")
 			->set($arrSet)
-			->executeUncached();
+			->execute();
 		if ($objInsert->insertId == 0)
 		{
 			//Zählung, Update
@@ -67,7 +75,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
                                                   , `banner_views` = `banner_views`+1
                                                WHERE
                                                     `id`=?")
-				->executeUncached(time(), $BannerID);
+				->execute(time(), $BannerID);
 		}
 	}
 
@@ -218,6 +226,55 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 		$this->cssID             = $objBannerModule->cssID;
 		$this->space             = $objBannerModule->space;
 		$this->headline          = $objBannerModule->headline;
+		return true;
+	}
+
+	/**
+	 * Set Category Values in $this->arrCategoryValues over tl_banner_category
+	 *
+	 * @return boolean    true = OK | false = we have a problem
+	 */
+	protected function getSetCategoryValues()
+	{
+		//DEBUG log_message('getSetCategoryValues banner_categories:'.$this->banner_categories,'Banner.log');
+		//$this->banner_categories is now an ID, but the name is backward compatible
+		if ( !isset($this->banner_categories) || !is_numeric($this->banner_categories) )
+		{
+			$this->log($GLOBALS['TL_LANG']['tl_banner']['banner_cat_not_found'], 'ModulBanner Compile', 'ERROR');
+			$this->arrCategoryValues = false;
+			return false;
+		}
+		$objBannerCategory = \Database::getInstance()->prepare("SELECT
+                                                                    *
+                                                                FROM
+                                                                    tl_banner_category
+                                                                WHERE
+                                                                    id=?")
+			->execute($this->banner_categories);
+		if ($objBannerCategory->numRows == 0)
+		{
+			$this->log($GLOBALS['TL_LANG']['tl_banner']['banner_cat_not_found'], 'ModulBanner Compile', 'ERROR');
+			$this->arrCategoryValues = false;
+			return false;
+		}
+		$arrGroup = deserialize($objBannerCategory->banner_groups);
+		//Pfad+Dateiname holen ueber UUID (findByPk leitet um auf findByUuid)
+		$objFile = \FilesModel::findByPk($objBannerCategory->banner_default_image);
+		$this->arrCategoryValues = array(
+			'id'                    => $objBannerCategory->id,
+			'banner_default'		=> $objBannerCategory->banner_default,
+			'banner_default_name'	=> $objBannerCategory->banner_default_name,
+			'banner_default_image'	=> $objFile->path,
+			'banner_default_url'	=> $objBannerCategory->banner_default_url,
+			'banner_default_target'	=> $objBannerCategory->banner_default_target,
+			'banner_numbers'		=> $objBannerCategory->banner_numbers, //0:single,1:multi,see banner_limit
+			'banner_random'			=> $objBannerCategory->banner_random,
+			'banner_limit'			=> $objBannerCategory->banner_limit, // 0:all, others = max
+			'banner_protected'		=> $objBannerCategory->banner_protected,
+			'banner_mediaquery'		=> $objBannerCategory->banner_mediaquery, // add media query
+			'banner_group'			=> $arrGroup[0]
+		);
+		//DEBUG log_message('getSetCategoryValues arrCategoryValues:'.print_r($this->arrCategoryValues,true),'Banner.log');
 		return true;
 	}
 
@@ -449,5 +506,4 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 		}
 
 	}
-
 }
