@@ -19,7 +19,7 @@
     "require": {
         "contao/core": ">=3.3,<4-dev",
 	    "bugbuster/banner": ">=3.5,<3.6-dev",
-        "heimrichhannot/mediaquery": ">=1.0,<2.0-dev"
+        "heimrichhannot/contao-mediaquery": ">=1.0,<2.0-dev"
     },
     "autoload": {
         "classmap": [""]
