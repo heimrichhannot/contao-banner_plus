@@ -137,7 +137,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 
 		//OK, noch Banner übrig, weiter gehts
 		//Single Banner?
-		if ($this->arrCategoryValues['banner_numbers'] != 1)
+		if ($this->arrCategoryValues['banner_numbers'] == 1)
 		{
 			//FirstViewBanner?
 			if ($this->getSetFirstView() === true)
@@ -267,7 +267,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 			'banner_default_image'	=> $objFile->path,
 			'banner_default_url'	=> $objBannerCategory->banner_default_url,
 			'banner_default_target'	=> $objBannerCategory->banner_default_target,
-			'banner_numbers'		=> $objBannerCategory->banner_numbers, //0:single,1:multi,see banner_limit
+			'banner_numbers'		=> $objBannerCategory->banner_numbers == '' ? 0 : $objBannerCategory->banner_numbers, //0:single,1:multi,see banner_limit
 			'banner_random'			=> $objBannerCategory->banner_random,
 			'banner_limit'			=> $objBannerCategory->banner_limit, // 0:all, others = max
 			'banner_protected'		=> $objBannerCategory->banner_protected,
