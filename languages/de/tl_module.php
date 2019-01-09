@@ -9,7 +9,17 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
+$lang = &$GLOBALS['TL_LANG']['tl_module'];
+
+/**
+ * Fields
+ */
+
+$lang['banner_plus_displayFormat'] = ['Format der Bannereinblendung','Geben Sie hier an, wie die Anzeigen innerhalb des Sliders angezeigt werden sollen.'];
+$lang['banner_plus_displayFormat'][\HeimrichHannot\Banner\DataContainer\ModuleContainer::DISPLAY_DEFAULT] = 'Standard';
+$lang['banner_plus_displayFormat'][\HeimrichHannot\Banner\DataContainer\ModuleContainer::DISPLAY_ROTATORY] = 'Abwechselnd';
+
 /**
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_module']['banner_legend'] = 'Banner';
+$lang['banner_legend'] = 'Banner';

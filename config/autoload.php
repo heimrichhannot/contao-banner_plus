@@ -3,7 +3,7 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2015 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  *
  * @license LGPL-3.0+
  */
@@ -24,7 +24,9 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'HeimrichHannot\Banner\ModuleBannerTag' => 'system/modules/banner_plus/classes/ModuleBannerTag.php',
+	'HeimrichHannot\Banner\SliderDisplayFormat'           => 'system/modules/banner_plus/classes/SliderDisplayFormat.php',
+	'HeimrichHannot\Banner\DataContainer\ModuleContainer' => 'system/modules/banner_plus/classes/DataContainer/ModuleContainer.php',
+	'HeimrichHannot\Banner\ModuleBannerTag'               => 'system/modules/banner_plus/classes/ModuleBannerTag.php',
 ));
 
 

@@ -156,37 +156,19 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 			$this->getMultiBanner();
 		}
 
-		$arrArticles = $objTemplate->articles;
-		$arrBanners = $this->Template->banners;
-		$arrBannerWeight = $this->arrAllBannersBasic;
-
-		if(is_array($arrBanners))
+		if(is_array($this->Template->banners))
 		{
-			foreach($arrBanners as $arrData)
-			{
-				$this->setCssClassIdStyle();
-				$this->Template->banners = array($arrData);
-				$weight = $arrBannerWeight[$arrData['banner_id']];
-				
-				switch($weight){
-					// highest priority -> prepend
-					case 1:
-						array_unshift($arrArticles, $this->Template->parse());
-					break;
-					// normal priority -> middle
-					case 2:
-						array_insert($arrArticles, ceil(count($arrArticles) / 2), array($this->Template->parse()));
-					break;
-					// lowest priority -> append
-					case 3:
-						array_insert($arrArticles, count($arrArticles), array($this->Template->parse()));
-					break;
-				}
-			}
+            $style = new SliderDisplayFormat($objTemplate->articles, $this->Template->banners, $this->arrAllBannersBasic, $this);
+            $objTemplate->articles = $style->format($objModule->banner_plus_displayFormat);
 		}
-		
-		$objTemplate->articles = $arrArticles;
 	}
+
+	public function renderBanner(array $banner)
+    {
+        $this->setCssClassIdStyle();
+        $this->Template->banners = array($banner);
+        return $this->Template->parse();
+    }
 
 	/**
 	 * Wrapper for backward compatibility
