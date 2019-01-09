@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2019-01-09
+
+### Fixed
+- added the missing composer.json update from 1.1.0
+
 ## [1.1.0] - 2019-01-09
 
 ### Added
