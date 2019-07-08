@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.1.3] - 2019-07-08
+
+### Fixed
+- change changelog
+
+## [1.1.2] - 2019-07-08
+
+### Add
+- add high impact banner
+
 ## [1.1.1] - 2019-01-09
 
 ### Fixed
