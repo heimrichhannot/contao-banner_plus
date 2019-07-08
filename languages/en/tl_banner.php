@@ -39,4 +39,10 @@ $GLOBALS['TL_LANG']['tl_banner']['banner_imgSize_right']['1']      = 'Here you c
 $GLOBALS['TL_LANG']['tl_banner']['exclude'] = 'All pages except';
 $GLOBALS['TL_LANG']['tl_banner']['include'] = 'Only on the following pages';
 
+
+$GLOBALS['TL_LANG']['tl_banner']['banner_animation']['0'] = 'Banner animation of High Impact Ads';
+$GLOBALS['TL_LANG']['tl_banner']['banner_animation']['1'] = 'The diraction of the animation of the format High Impact Ads can be set here.';
+$GLOBALS['TL_LANG']['tl_banner']['left'] = 'High Impact Ads from right to left';
+$GLOBALS['TL_LANG']['tl_banner']['top'] = 'High Impact Ads from bottom to top';
+
 $GLOBALS['TL_LANG']['tl_banner_type']['banner_image_fireplace'] = 'Internal banner image (fireplace)';

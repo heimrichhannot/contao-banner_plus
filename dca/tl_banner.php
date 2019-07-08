@@ -92,8 +92,18 @@ $arrFields = array
 		'sql'                     => "varchar(255) NOT NULL default ''",
 		'eval'                    => array('rgxp'=>'digit', 'nospace'=>true)
 	),
+    'banner_animation' => array(
+        'label'     => &$GLOBALS['TL_LANG']['tl_banner']['banner_animation'],
+        'exclude'   => true,
+        'inputType' => 'radio',
+        'options'   => array('left', 'top'),
+        'default'   => 'left',
+        'reference' => &$GLOBALS['TL_LANG']['tl_banner'],
+        'eval'      => array('submitOnChange' => true),
+        'sql'       => "varchar(32) NOT NULL default ''",
+    ),
 );
 
 $dc['fields'] = array_merge($dc['fields'], $arrFields);
 
-$dc['palettes']['banner_image'] = str_replace('banner_imgSize', 'banner_imgSize,banner_image_left,banner_imgSize_left,banner_image_right,banner_imgSize_right', $dc['palettes']['banner_image']);
+$dc['palettes']['banner_image'] = str_replace('banner_imgSize', 'banner_imgSize,banner_image_left,banner_imgSize_left,banner_image_right,banner_imgSize_right,banner_animation', $dc['palettes']['banner_image']);

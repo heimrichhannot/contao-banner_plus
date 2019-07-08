@@ -39,4 +39,10 @@ $GLOBALS['TL_LANG']['tl_banner']['banner_imgSize_right']['1'] = 'Hier können Si
 $GLOBALS['TL_LANG']['tl_banner']['exclude'] = 'Alle Seiten außer den folgenden';
 $GLOBALS['TL_LANG']['tl_banner']['include'] = 'Nur auf den folgenden Seiten';
 
+$GLOBALS['TL_LANG']['tl_banner']['banner_animation']['0'] = 'Banner Animation von High Impact Ads';
+$GLOBALS['TL_LANG']['tl_banner']['banner_animation']['1'] = 'Die Bewegungsrichtung von des Formats High Impact Ads kann hier bestimmt werden';
+$GLOBALS['TL_LANG']['tl_banner']['left'] = 'von rechts nach links';
+$GLOBALS['TL_LANG']['tl_banner']['top'] = 'von unten nach oben';
+
+
 $GLOBALS['TL_LANG']['tl_banner_type']['banner_image_fireplace'] = 'Internal banner image (fireplace)';
