@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+
+## [1.1.4] - 2019-07-08
+
+### Changed
+- modify high impact banner template
+- add gitignore
+
 ## [1.1.3] - 2019-07-08
 
 ### Fixed
