@@ -19,17 +19,12 @@ if(is_array($GLOBALS['TL_HOOKS']['replaceInsertTags']))
 {
 	foreach($GLOBALS['TL_HOOKS']['replaceInsertTags'] as $key => $arrConfig)
 	{
-		if($arrConfig[0] == 'Banner\ModuleBannerTag')
+		if($arrConfig[0] == 'BugBuster\Banner\BannerInsertTag')
 		{
-			$GLOBALS['TL_HOOKS']['replaceInsertTags'][$key][0] = 'HeimrichHannot\Banner\ModuleBannerTag';
+			$GLOBALS['TL_HOOKS']['replaceInsertTags'][$key][0] = \HeimrichHannot\Banner\ModuleBannerTag::class;
 		}
 	}
 }
 
-/**
- * Add support to slick slider for parorama ads
- */
-if(in_array('slick', \ModuleLoader::getActive()))
-{
-	$GLOBALS['TL_HOOKS']['compileSlickNewsList'][] = array('HeimrichHannot\Banner\ModuleBannerTag', 'compileSlickNewsListHook');
-}
+
+$GLOBALS['TL_HOOKS']['compileSlickNewsList']['huh_banner_plus'] = [\HeimrichHannot\Banner\EventListener\CompileSlickNewsListListener::class, 'onCompileSlickNewsList'];

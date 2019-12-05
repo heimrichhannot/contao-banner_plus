@@ -17,11 +17,10 @@
         "issues":"https://github.com/heimrichhannot/contao-banner_plus/issues"
     },
     "require": {
-        "php": "~5.6 || ~7.0",
-        "contao/core-bundle": "^3.5.1 || ~4.1",
-        "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
-	      "bugbuster/banner": "3.5.*",
-        "heimrichhannot/contao-mediaquery": "^1.0"
+        "php": "~7.0",
+        "contao/core-bundle": "~4.1",
+        "contao-community-alliance/composer-plugin": "~3.0",
+        "bugbuster/contao-banner-bundle": "1.0.10.*"
     },
     "autoload": {
         "classmap": [""]

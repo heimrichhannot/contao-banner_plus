@@ -11,7 +11,13 @@
 namespace HeimrichHannot\Banner;
 
 
-class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
+use BugBuster\Banner\BannerInsertTag;
+use BugBuster\Banner\BannerLogic;
+use BugBuster\Banner\BannerSingle;
+use Contao\Database;
+use Contao\FrontendTemplate;
+
+class ModuleBannerTag extends BannerInsertTag
 {
 
     /**
@@ -39,10 +45,14 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
         }
 
         // check if banner is visible for user by media query
-        if ($arrCategory['banner_mediaquery'] != '' && !\HeimrichHannot\MediaQuery\Viewport::matchQuery($arrCategory['banner_mediaquery']))
-        {
-            return;
-        }
+
+        /**
+         * @todo temporary disabled viewport check. Should be generally replaced by an client only check (without cookie)
+         */
+//        if ($arrCategory['banner_mediaquery'] != '' && !\HeimrichHannot\MediaQuery\Viewport::matchQuery($arrCategory['banner_mediaquery']))
+//        {
+//            return;
+//        }
 
         if ( $this->getStatViewUpdateBlockerId($BannerID) === true )
         {
@@ -73,7 +83,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
                                                SET
                                                     `tstamp`=?
                                                   , `banner_views` = `banner_views`+1
-                                               WHERE
+                                               WHEREsl
                                                     `id`=?")
                 ->execute(time(), $BannerID);
         }
@@ -104,14 +114,15 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
         }
 
 
-        $this->Template = new \FrontendTemplate($this->strTemplate);
+        $this->Template = new FrontendTemplate($this->strTemplate);
 
         if ($this->statusAllBannersBasic === false)
         {
             //keine Banner vorhanden in der Kategorie
             //default Banner holen
             //kein default Banner, ausblenden wenn leer?
-            $this->getDefaultBanner();
+            $objBannerSingle = new BannerSingle($this->arrCategoryValues, $this->banner_template, $this->strTemplate, $this->Template, $this->arrAllBannersBasic);
+            $this->Template = $objBannerSingle->getDefaultBanner($this->banner_hideempty);
         }
 
         //OK, Banner vorhanden, dann weiter
@@ -139,10 +150,11 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
         //Single Banner?
         if ($this->arrCategoryValues['banner_numbers'] == 1)
         {
-            //FirstViewBanner?
-            if ($this->getSetFirstView() === true)
+            $objBannerLogic = new BannerLogic();
+            if ($objBannerLogic->getSetFirstView($this->banner_firstview,$this->banner_categories,$this->module_id) === true)
             {
-                $this->getSingleBannerFirst();
+                $objBannerSingle = new BannerSingle($this->arrCategoryValues, $this->banner_template, $this->strTemplate, $this->Template, $this->arrAllBannersBasic);
+                $this->Template = $objBannerSingle->getSingleBannerFirst($this->module_id);
             }
             else if(!empty($this->arrAllBannersBasic))
             {
@@ -180,7 +192,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
     {
         $this->module_id = $moduleId; //for RandomBlocker Session
         //DEBUG log_message('getModuleData Banner Modul ID:'.$moduleId,'Banner.log');
-        $objBannerModule = \Database::getInstance()->prepare("SELECT
+        $objBannerModule = Database::getInstance()->prepare("SELECT
                                                                     banner_hideempty,
                                                         	        banner_firstview,
                                                         	        banner_categories,
@@ -188,7 +200,6 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
                                                         	        banner_redirect,
                                                         	        banner_useragent,
                                                                     cssID,
-                                                                    space,
                                                                     headline
                                                                 FROM
                                                                     tl_module
@@ -206,7 +217,6 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
         $this->banner_redirect   = $objBannerModule->banner_redirect;
         $this->banner_useragent  = $objBannerModule->banner_useragent;
         $this->cssID             = $objBannerModule->cssID;
-        $this->space             = $objBannerModule->space;
         $this->headline          = $objBannerModule->headline;
         return true;
     }
@@ -226,7 +236,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
             $this->arrCategoryValues = false;
             return false;
         }
-        $objBannerCategory = \Database::getInstance()->prepare("SELECT
+        $objBannerCategory = Database::getInstance()->prepare("SELECT
                                                                     *
                                                                 FROM
                                                                     tl_banner_category
@@ -376,7 +386,7 @@ class ModuleBannerTag extends \BugBuster\Banner\ModuleBannerTag
 
         foreach($arrBanners as $i => $arrBanner)
         {
-            $objBanner = \BannerModel::findByPk($arrBanner['banner_id']);
+            $objBanner = BannerModel::findByPk($arrBanner['banner_id']);
 
             if($objBanner === null) continue;
 
