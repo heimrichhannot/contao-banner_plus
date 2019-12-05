@@ -28,6 +28,6 @@ class CompileSlickNewsListListener
     public function onCompileSlickNewsList(&$objTemplate, $objModule, $objModel)
     {
         $template = new ModuleBannerTag();
-        $template->compileSlickNewsListHook($template, $objModule, $objModel);
+        return $template->compileSlickNewsListHook($objTemplate, $objModule, $objModel);
     }
 }

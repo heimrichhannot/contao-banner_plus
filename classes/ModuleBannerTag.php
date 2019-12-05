@@ -13,9 +13,11 @@ namespace HeimrichHannot\Banner;
 
 use BugBuster\Banner\BannerInsertTag;
 use BugBuster\Banner\BannerLogic;
+use BugBuster\Banner\BannerMultiple;
 use BugBuster\Banner\BannerSingle;
 use Contao\Database;
 use Contao\FrontendTemplate;
+use HeimrichHannot\Banner\Model\BannerModel;
 
 class ModuleBannerTag extends BannerInsertTag
 {
@@ -436,15 +438,16 @@ class ModuleBannerTag extends BannerInsertTag
 
     protected function getMultiBanner()
     {
-        $blnParent = parent::getMultiBanner();
+        $objBannerMultiple = new BannerMultiple($this->arrCategoryValues, $this->banner_template, $this->strTemplate, $this->Template, $this->arrAllBannersBasic);
+        $this->Template = $objBannerMultiple->getMultiBanner($this->module_id);
 
-        if(!is_array($this->Template->banners)) return $blnParent;
+        if(!is_array($this->Template->banners)) return $this->Template->banners;
 
         $arrBanners = $this->Template->banners;
 
         foreach($arrBanners as $i => $arrBanner)
         {
-            $objBanner = \BannerModel::findByPk($arrBanner['banner_id']);
+            $objBanner = BannerModel::findByPk($arrBanner['banner_id']);
 
             if($objBanner === null) continue;
 
