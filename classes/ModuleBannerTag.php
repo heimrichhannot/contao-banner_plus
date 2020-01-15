@@ -74,18 +74,18 @@ class ModuleBannerTag extends BannerInsertTag
             'tstamp' => time(),
             'banner_views' => 1
         );
-        $objInsert = \Database::getInstance()->prepare("INSERT IGNORE INTO tl_banner_stat %s")
+        $objInsert = Database::getInstance()->prepare("INSERT IGNORE INTO tl_banner_stat %s")
             ->set($arrSet)
             ->execute();
         if ($objInsert->insertId == 0)
         {
             //Zählung, Update
-            \Database::getInstance()->prepare("UPDATE
+            Database::getInstance()->prepare("UPDATE
                                                     `tl_banner_stat`
                                                SET
                                                     `tstamp`=?
                                                   , `banner_views` = `banner_views`+1
-                                               WHEREsl
+                                               WHERE
                                                     `id`=?")
                 ->execute(time(), $BannerID);
         }

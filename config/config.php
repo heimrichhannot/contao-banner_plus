@@ -15,16 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-if(is_array($GLOBALS['TL_HOOKS']['replaceInsertTags']))
-{
-	foreach($GLOBALS['TL_HOOKS']['replaceInsertTags'] as $key => $arrConfig)
-	{
-		if($arrConfig[0] == 'BugBuster\Banner\BannerInsertTag')
-		{
-			$GLOBALS['TL_HOOKS']['replaceInsertTags'][$key][0] = \HeimrichHannot\Banner\ModuleBannerTag::class;
-		}
-	}
-}
 
 
-$GLOBALS['TL_HOOKS']['compileSlickNewsList']['huh_banner_plus'] = [\HeimrichHannot\Banner\EventListener\CompileSlickNewsListListener::class, 'onCompileSlickNewsList'];
+
+$GLOBALS['TL_HOOKS']['initializeSystem']['huh_banner_plus'] = [\HeimrichHannot\Banner\EventListener\InitializeSystemListener::class, 'onInitializeSystem'];

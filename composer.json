@@ -20,7 +20,7 @@
         "php": "~7.0",
         "contao/core-bundle": "~4.1",
         "contao-community-alliance/composer-plugin": "~3.0",
-        "bugbuster/contao-banner-bundle": "1.0.10.*"
+        "bugbuster/contao-banner-bundle": "^1.0.10"
     },
     "autoload": {
         "classmap": [""]
