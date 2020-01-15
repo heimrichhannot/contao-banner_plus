@@ -26,7 +26,6 @@ ClassLoader::addClasses(array
 	// Classes
 	'HeimrichHannot\Banner\SliderDisplayFormat'           => 'system/modules/banner_plus/classes/SliderDisplayFormat.php',
 	'HeimrichHannot\Banner\DataContainer\ModuleContainer' => 'system/modules/banner_plus/classes/DataContainer/ModuleContainer.php',
-	'HeimrichHannot\Banner\ModuleBannerTag'               => 'system/modules/banner_plus/classes/ModuleBannerTag.php',
 ));
 
 

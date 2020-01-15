@@ -14,7 +14,7 @@ namespace HeimrichHannot\Banner\EventListener;
 
 use Contao\FrontendTemplate;
 use Contao\ModuleModel;
-use HeimrichHannot\Banner\ModuleBannerTag;
+use HeimrichHannot\Banner\Generator\SlickBannerGenerator;
 use HeimrichHannot\SlickBundle\ModuleSlickNewsList;
 
 class CompileSlickNewsListListener
@@ -22,12 +22,13 @@ class CompileSlickNewsListListener
 
     /**
      * @param FrontendTemplate $objTemplate
-     * @param ModuleSlickNewsList $objModule
+     * @param ModuleSlickNewsList $frontendModule
      * @param ModuleModel $objModel
      */
-    public function onCompileSlickNewsList(&$objTemplate, $objModule, $objModel)
+    public function onCompileSlickNewsList(&$objTemplate, $frontendModule, $objModel)
     {
-        $template = new ModuleBannerTag();
-        return $template->compileSlickNewsListHook($objTemplate, $objModule, $objModel);
+
+        $slickBannerGenerator = new SlickBannerGenerator();
+        $slickBannerGenerator->generateSlickBanner($objTemplate, $objModel);
     }
 }

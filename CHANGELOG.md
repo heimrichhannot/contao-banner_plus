@@ -2,8 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [2.0.0-DEV] - 2020-01-15
-- exchanged banner for contao-banner-bundle
-- optimized hook handling
+- reworked to be compatible with contao-banner-bundle instead of banner module
 
 ## [1.1.4] - 2019-07-08
 

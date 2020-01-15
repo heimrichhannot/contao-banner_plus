@@ -28,7 +28,7 @@ class InitializeSystemListener
             {
                 if($arrConfig[0] == 'BugBuster\Banner\BannerInsertTag')
                 {
-                    $GLOBALS['TL_HOOKS']['replaceInsertTags'][$key][0] = \HeimrichHannot\Banner\ModuleBannerTag::class;
+                    $GLOBALS['TL_HOOKS']['replaceInsertTags'][$key] = [ReplaceInsertTagsListener::class, 'onReplaceInsertTags'];
                 }
             }
         }

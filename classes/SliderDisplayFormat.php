@@ -13,6 +13,7 @@ namespace HeimrichHannot\Banner;
 
 
 use HeimrichHannot\Banner\DataContainer\ModuleContainer;
+use HeimrichHannot\Banner\Generator\SlickBannerGenerator;
 
 class SliderDisplayFormat
 {
@@ -29,7 +30,7 @@ class SliderDisplayFormat
      */
     private $bannerWeights;
     /**
-     * @var ModuleBannerTag
+     * @var SlickBannerGenerator
      */
     private $module;
 
@@ -38,7 +39,7 @@ class SliderDisplayFormat
     /**
      * SliderDisplayFormat constructor.
      */
-    public function __construct(array $articles, array $banner, array $bannerWeights, ModuleBannerTag $module)
+    public function __construct(array $articles, array $banner, array $bannerWeights, SlickBannerGenerator $module)
     {
 
         $this->articles      = $articles;
@@ -76,15 +77,15 @@ class SliderDisplayFormat
             {
                 // highest priority -> prepend
                 case 1:
-                    array_unshift($articles, $this->module->renderBanner($banner));
+                    array_unshift($articles, $this->renderBanner($banner));
                     break;
                 // normal priority -> middle
                 case 2:
-                    array_insert($articles, ceil(count($articles) / 2), [$this->module->renderBanner($banner)]);
+                    array_insert($articles, ceil(count($articles) / 2), [$this->renderBanner($banner)]);
                     break;
                 // lowest priority -> append
                 case 3:
-                    array_insert($articles, count($articles), [$this->module->renderBanner($banner)]);
+                    array_insert($articles, count($articles), [$this->renderBanner($banner)]);
                     break;
             }
         }
@@ -114,7 +115,7 @@ class SliderDisplayFormat
                 continue;
             }
             $banner                = array_shift($sortedBanners[$priority]);
-            $sliderContent[] = $this->module->renderBanner($banner);
+            $sliderContent[] = $this->renderBanner($banner);
         }
         return $sliderContent;
     }
@@ -145,6 +146,12 @@ class SliderDisplayFormat
         }
         $this->bannersWeightSorted = $bannersWeightSorted;
         return $bannersWeightSorted;
+    }
+
+    protected function renderBanner($banner)
+    {
+        $this->module->Template->banners = array($banner);
+        return $this->module->Template->parse();
     }
 
 
