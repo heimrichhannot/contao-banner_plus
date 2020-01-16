@@ -9,7 +9,7 @@
  */
 
 
-namespace HeimrichHannot\Banner\EventListener;
+namespace HeimrichHannot\BannerPlusBundle\EventListener;
 
 
 class InitializeSystemListener
@@ -19,8 +19,8 @@ class InitializeSystemListener
      */
     public function onInitializeSystem()
     {
-        if (isset($GLOBALS['TL_HOOKS']['compileSlickNewsList'])) {
-            $GLOBALS['TL_HOOKS']['compileSlickNewsList']['huh_banner_plus'] = [\HeimrichHannot\Banner\EventListener\CompileSlickNewsListListener::class, 'onCompileSlickNewsList'];
+        if (class_exists('HeimrichHannot\SlickBundle\HeimrichHannotContaoSlickBundle')) {
+            $GLOBALS['TL_HOOKS']['compileSlickNewsList']['huh_banner_plus'] = [CompileSlickNewsListListener::class, 'onCompileSlickNewsList'];
         }
         if(isset($GLOBALS['TL_HOOKS']['replaceInsertTags']) && is_array($GLOBALS['TL_HOOKS']['replaceInsertTags']))
         {

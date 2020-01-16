@@ -9,11 +9,11 @@
  */
 
 
-namespace HeimrichHannot\Banner\Template;
+namespace HeimrichHannot\BannerPlusBundle\Template;
 
 
 use BugBuster\Banner\BannerMultiple;
-use HeimrichHannot\Banner\Model\BannerModel;
+use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
 
 class MultipleBannerTemplate extends BannerMultiple
 {
@@ -48,6 +48,7 @@ class MultipleBannerTemplate extends BannerMultiple
         }
 
         $this->Template->banners = $arrBanners;
+        return $this->Template;
     }
 
 }

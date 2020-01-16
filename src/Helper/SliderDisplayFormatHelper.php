@@ -9,13 +9,14 @@
  */
 
 
-namespace HeimrichHannot\Banner;
+namespace HeimrichHannot\BannerPlusBundle\Helper;
 
 
-use HeimrichHannot\Banner\DataContainer\ModuleContainer;
-use HeimrichHannot\Banner\Generator\SlickBannerGenerator;
+use Contao\FrontendTemplate;
+use HeimrichHannot\BannerPlusBundle\DataContainer\ModuleContainer;
+use HeimrichHannot\BannerPlusBundle\Template\SlickBannerTemplate;
 
-class SliderDisplayFormat
+class SliderDisplayFormatHelper
 {
     /**
      * @var array
@@ -30,22 +31,22 @@ class SliderDisplayFormat
      */
     private $bannerWeights;
     /**
-     * @var SlickBannerGenerator
+     * @var FrontendTemplate
      */
-    private $module;
+    private $template;
 
     protected $bannersWeightSorted = [];
 
     /**
      * SliderDisplayFormat constructor.
      */
-    public function __construct(array $articles, array $banner, array $bannerWeights, SlickBannerGenerator $module)
+    public function __construct(array $articles, array $banner, array $bannerWeights, $template)
     {
 
         $this->articles      = $articles;
         $this->banners       = $banner;
         $this->bannerWeights = $bannerWeights;
-        $this->module        = $module;
+        $this->template        = $template;
     }
 
     /**
@@ -150,8 +151,8 @@ class SliderDisplayFormat
 
     protected function renderBanner($banner)
     {
-        $this->module->Template->banners = array($banner);
-        return $this->module->Template->parse();
+        $this->template->banners = array($banner);
+        return $this->template->parse();
     }
 
 

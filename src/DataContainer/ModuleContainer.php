@@ -9,12 +9,11 @@
  */
 
 
-namespace HeimrichHannot\Banner\Model;
+namespace HeimrichHannot\BannerPlusBundle\DataContainer;
 
 
-use Contao\Model;
-
-class BannerModel extends Model
+class ModuleContainer
 {
-    protected static $strTable = 'tl_banner';
+    const DISPLAY_DEFAULT = "default";
+    const DISPLAY_ROTATORY = 'rotatory';
 }

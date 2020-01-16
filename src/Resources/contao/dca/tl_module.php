@@ -12,22 +12,13 @@
 $table = 'tl_module';
 $dc = &$GLOBALS['TL_DCA'][$table];
 
-if (in_array('slick', \Contao\ModuleLoader::getActive()))
-{
-	$dc['palettes']['slick_newslist'] = str_replace(
-		'skipFirst;',
-		'skipFirst;{banner_legend},banner_hideempty,banner_firstview,banner_categories,banner_template,banner_plus_displayFormat,banner_redirect,guests,protected,banner_useragent;',
-		$dc['palettes']['slick_newslist']
-	);
-}
-
 $dc['fields']['banner_plus_displayFormat'] = [
     'label'     => &$GLOBALS['TL_LANG'][$table]['banner_plus_displayFormat'],
     'exclude'   => true,
     'inputType' => 'select',
     'options'   => [
-        \HeimrichHannot\Banner\DataContainer\ModuleContainer::DISPLAY_DEFAULT,
-        \HeimrichHannot\Banner\DataContainer\ModuleContainer::DISPLAY_ROTATORY,
+        \HeimrichHannot\BannerPlusBundle\DataContainer\ModuleContainer::DISPLAY_DEFAULT,
+        \HeimrichHannot\BannerPlusBundle\DataContainer\ModuleContainer::DISPLAY_ROTATORY,
     ],
     'reference' => &$GLOBALS['TL_LANG'][$table]['banner_plus_displayFormat'],
     'eval'      => ['includeBlankOption' => true, 'tl_class' => 'w50 clr', 'helpwizard'=>true,],

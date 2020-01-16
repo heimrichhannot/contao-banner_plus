@@ -16,8 +16,8 @@ $lang = &$GLOBALS['TL_LANG']['tl_module'];
  */
 
 $lang['banner_plus_displayFormat'] = ['Format der Bannereinblendung','Geben Sie hier an, wie die Anzeigen innerhalb des Sliders angezeigt werden sollen.'];
-$lang['banner_plus_displayFormat'][\HeimrichHannot\Banner\DataContainer\ModuleContainer::DISPLAY_DEFAULT] = 'Standard';
-$lang['banner_plus_displayFormat'][\HeimrichHannot\Banner\DataContainer\ModuleContainer::DISPLAY_ROTATORY] = 'Abwechselnd';
+$lang['banner_plus_displayFormat'][\HeimrichHannot\BannerPlusBundle\DataContainer\ModuleContainer::DISPLAY_DEFAULT] = 'Standard';
+$lang['banner_plus_displayFormat'][\HeimrichHannot\BannerPlusBundle\DataContainer\ModuleContainer::DISPLAY_ROTATORY] = 'Abwechselnd';
 
 /**
  * Legends

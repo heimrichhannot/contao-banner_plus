@@ -9,7 +9,7 @@
  */
 
 
-namespace HeimrichHannot\Banner\Generator;
+namespace HeimrichHannot\BannerPlusBundle\Template;
 
 
 use BugBuster\Banner\BannerHelper;
@@ -17,10 +17,10 @@ use BugBuster\Banner\BannerInsertTag;
 use BugBuster\Banner\BannerLog;
 use BugBuster\Banner\BannerLogic;
 use Contao\Database;
-use HeimrichHannot\Banner\Template\MultipleBannerTemplate;
-use HeimrichHannot\Banner\Template\SingleBannerTemplate;
+use Contao\StringUtil;
+use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
 
-class BannerGenerator extends BannerInsertTag
+class BannerTemplate extends BannerInsertTag
 {
     /**
      * getModuleData
@@ -179,4 +179,44 @@ class BannerGenerator extends BannerInsertTag
         $objBannerMultiple = new MultipleBannerTemplate($this->arrCategoryValues, $this->banner_template, $this->strTemplate, $this->Template, $this->arrAllBannersBasic);
         $this->Template    = $objBannerMultiple->getMultiBanner($this->module_id);
     }
+
+    protected function getSetAllBannerForCategory()
+    {
+        if (false === parent::getSetAllBannerForCategory()) {
+            return false;
+        }
+
+        global $objPage;
+
+        foreach ($this->arrAllBannersBasic as $bannerId => $bannerWeighting) {
+            $bannerModel = BannerModel::findByPk($bannerId);
+            if (!$bannerModel) {
+                continue;
+            }
+            $arrPages = StringUtil::deserialize($bannerModel->pages);
+            /**
+             * Filter out pages
+             * (exclude == display module not on this page)
+             * (include == display module only on this page)
+             */
+            if(is_array($arrPages) && count($arrPages) > 0)
+            {
+                // add nested pages to the filter
+                if($bannerModel->addPageDepth)
+                {
+                    $arrPages = array_merge($arrPages, Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
+                }
+
+                $check = ($bannerModel->addVisibility == 'exclude') ? true : false;
+
+                if(in_array($objPage->id, $arrPages) == $check)
+                {
+                    unset($this->arrAllBannersBasic[$bannerId]);
+                }
+            }
+        }
+        return (bool)$this->arrAllBannersBasic;
+    }
+
+
 }

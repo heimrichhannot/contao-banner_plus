@@ -9,23 +9,23 @@
  */
 
 
-namespace HeimrichHannot\Banner\Generator;
+namespace HeimrichHannot\BannerPlusBundle\Template;
 
 
 use BugBuster\Banner\BannerLog;
 use Contao\FrontendTemplate;
 use Contao\Module;
 use Contao\ModuleModel;
-use HeimrichHannot\Banner\SliderDisplayFormat;
+use HeimrichHannot\BannerPlusBundle\Helper\SliderDisplayFormatHelper;
 use HeimrichHannot\SlickBundle\ModuleSlickNewsList;
 
 /**
  * Class SlickBannerGenerator
- * @package HeimrichHannot\Banner\Generator
+ * @package HeimrichHannot\BannerPlusBundle\Helper\Generator
  *
  * @property FrontendTemplate $Template
  */
-class SlickBannerGenerator extends BannerGenerator
+class SlickBannerTemplate extends BannerTemplate
 {
     /**
      * @param FrontendTemplate $template
@@ -35,8 +35,8 @@ class SlickBannerGenerator extends BannerGenerator
      */
     public function generateSlickBanner(&$template, $frontendModule, $model)
     {
-        $retModuleData = $this->getModuleData($frontendModule->id);
-        if (false === $retModuleData)
+        $this->getModuleData($frontendModule->id);
+        if (false === $this->bannerHelperInit())
         {
             //kein Banner Modul mit dieser ID
             BannerLog::log('No banner module with this id "'.$frontendModule->id.'"', 'CompileSlickNewsListListener onCompileSlickNewsList', TL_ERROR);
@@ -55,7 +55,7 @@ class SlickBannerGenerator extends BannerGenerator
 
         if(is_array($this->Template->banners))
         {
-            $style = new SliderDisplayFormat($template->articles, $this->Template->banners, $this->arrAllBannersBasic, $this);
+            $style = new SliderDisplayFormatHelper($template->articles, $this->Template->banners, $this->arrAllBannersBasic, $this->Template);
             $template->articles = $style->format($frontendModule->banner_plus_displayFormat);
         }
     }

@@ -1,15 +1,15 @@
 {
-    "name": "heimrichhannot/contao-banner_plus",
+    "name": "heimrichhannot/contao-banner-plus-bundle",
     "description":"Improvements to BugBuster/Banner module.",
     "keywords":["contao", "banner", "pagefilter"],
-    "type": "contao-module",
+    "type": "contao-bundle",
     "homepage":"https://github.com/heimrichhannot/contao-banner_plus",
     "license":"LGPL-3.0-or-later",
     "authors":[
         {
             "name":"Heimrich & Hannot",
             "email":"digitales@heimrich-hannot.de",
-            "homepage":"https://www.heimrich-hannot.de",
+            "homepage":"https://heimrich-hannot.de",
             "role":"Developer"
         }
     ],
@@ -17,19 +17,25 @@
         "issues":"https://github.com/heimrichhannot/contao-banner_plus/issues"
     },
     "require": {
-        "php": "~7.0",
-        "contao/core-bundle": "~4.1",
-        "contao-community-alliance/composer-plugin": "~3.0",
+        "php": "~7.1",
+        "contao/core-bundle": "~4.4",
         "bugbuster/contao-banner-bundle": "^1.0.10"
     },
     "autoload": {
-        "classmap": [""]
+        "psr-4": {
+            "HeimrichHannot\\BannerPlusBundle\\": "src/"
+        },
+        "classmap": [
+            "src/Resources/contao/"
+        ],
+        "exclude-from-classmap": [
+            "src/Resources/contao/config/",
+            "src/Resources/contao/dca/",
+            "src/Resources/contao/languages/",
+            "src/Resources/contao/templates/"
+        ]
     },
     "extra": {
-        "contao": {
-            "sources": {
-                "": "system/modules/banner_plus"
-            }
-        }
+        "contao-manager-plugin": "HeimrichHannot\\BannerPlusBundle\\ContaoManager\\Plugin"
     }
 }

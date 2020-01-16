@@ -9,10 +9,10 @@
  */
 
 
-namespace HeimrichHannot\Banner\EventListener;
+namespace HeimrichHannot\BannerPlusBundle\EventListener;
 
 
-use HeimrichHannot\Banner\Generator\BannerGenerator;
+use HeimrichHannot\BannerPlusBundle\Template\BannerTemplate;
 
 class ReplaceInsertTagsListener
 {
@@ -21,7 +21,7 @@ class ReplaceInsertTagsListener
      */
     public function onReplaceInsertTags(string $insertTag)
     {
-        $bannerGenerator = new BannerGenerator();
+        $bannerGenerator = new BannerTemplate();
         return $bannerGenerator->replaceInsertTagsBanner($insertTag);
     }
 }

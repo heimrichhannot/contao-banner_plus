@@ -9,7 +9,7 @@
  */
 
 
-namespace HeimrichHannot\Banner\Template;
+namespace HeimrichHannot\BannerPlusBundle\Template;
 
 
 use BugBuster\Banner\BannerImage;
@@ -21,7 +21,7 @@ use Contao\Image;
 use Contao\Picture;
 use Contao\StringUtil;
 use Contao\System;
-use HeimrichHannot\Banner\Model\BannerModel;
+use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
 
 class SingleBannerTemplate extends BannerSingle
 {
@@ -80,6 +80,7 @@ class SingleBannerTemplate extends BannerSingle
         }
 
         $this->Template->banners = $arrBanners;
+        return $this->Template;
     }
 
     protected function addImageData($strKey, $arrSize=array(), &$arrBanner, $objBanner, $strSuffix = '')
