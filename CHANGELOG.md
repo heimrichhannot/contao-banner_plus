@@ -1,8 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [2.0.0-DEV] - 2020-01-15
-- reworked to be compatible with contao-banner-bundle instead of banner module
+## [2.0.0] - 2020-01-16
+- refactored to bundle structure
+- contao-banner-bundle compatiblity (instead of banner module) 
 
 ## [1.1.4] - 2019-07-08
 

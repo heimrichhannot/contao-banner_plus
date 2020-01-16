@@ -19,7 +19,8 @@
     "require": {
         "php": "~7.1",
         "contao/core-bundle": "~4.4",
-        "bugbuster/contao-banner-bundle": "^1.0.10"
+        "bugbuster/contao-banner-bundle": "1.0.10.*",
+        "heimrichhannot/contao-mediaquery": "^1.1"
     },
     "autoload": {
         "psr-4": {
