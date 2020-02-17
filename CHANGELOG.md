@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2020-02-17
+- fixed an dca install error
+
 ## [2.0.0] - 2020-01-16
 - refactored to bundle structure
 - contao-banner-bundle compatiblity (instead of banner module) 

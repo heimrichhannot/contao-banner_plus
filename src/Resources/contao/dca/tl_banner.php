@@ -69,7 +69,9 @@ $arrFields = array
 		'label'                   => &$GLOBALS['TL_LANG']['tl_banner']['banner_imgSize_left'],
 		'exclude'                 => true,
 		'inputType'               => 'imageSize',
-		'options'                 => System::getImageSizes(),
+		'options_callback'        => function() {
+            return \Contao\System::getContainer()->get('contao.image.image_sizes')->getAllOptions();
+        },
 		'reference'               => &$GLOBALS['TL_LANG']['MSC'],
 		'sql'                     => "varchar(255) NOT NULL default ''",
 		'eval'                    => array('rgxp'=>'digit', 'nospace'=>true)
