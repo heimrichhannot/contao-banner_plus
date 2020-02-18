@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-beta3] - 2020-02-18
+- fixed another dca install error
+
 ## [2.0.0-beta2] - 2020-02-17
 - fixed an dca install error
 
