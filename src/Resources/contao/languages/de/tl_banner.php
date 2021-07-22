@@ -46,3 +46,7 @@ $GLOBALS['TL_LANG']['tl_banner']['top'] = 'von unten nach oben';
 
 
 $GLOBALS['TL_LANG']['tl_banner_type']['banner_image_fireplace'] = 'Internal banner image (fireplace)';
+$GLOBALS['TL_LANG']['tl_banner_type']['banner_html']            = 'HTML Banner';
+
+$GLOBALS['TL_LANG']['tl_banner']['banner_html'][0]           = 'HTML Datei';
+$GLOBALS['TL_LANG']['tl_banner']['banner_html'][1]           = 'Wählen Sie eine HTML Datei aus.';

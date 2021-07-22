@@ -15,6 +15,7 @@ namespace HeimrichHannot\BannerPlusBundle\Template;
 use BugBuster\Banner\BannerImage;
 use BugBuster\Banner\BannerLog;
 use BugBuster\Banner\BannerSingle;
+use Contao\Database;
 use Contao\File;
 use Contao\FilesModel;
 use Contao\Image;
@@ -24,13 +25,32 @@ use Contao\StringUtil;
 use Contao\System;
 use HeimrichHannot\BannerPlusBundle\Model\BannerCategoryModel;
 use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
+use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 use HeimrichHannot\MediaQuery\Viewport;
 
 class SingleBannerTemplate extends BannerSingle
 {
+
+    const BANNER_TYPE_HTML = 'banner_html';
+
     public function getSingleBanner($module_id)
     {
-        $this->Template =  parent::getSingleBanner($module_id);
+
+        $banner_keys = array_keys($this->arrAllBannersBasic);
+        $banner_id   = array_shift($banner_keys);
+
+        $banner = Database::getInstance()->prepare("SELECT TLB.* FROM tl_banner AS TLB WHERE TLB.`id`=?")
+            ->limit(1)
+            ->execute( $banner_id );
+
+        $this->Template = parent::getSingleBanner($module_id);
+
+        if ($banner->row()['banner_type'] === static::BANNER_TYPE_HTML) {
+
+            $htmlType = new HtmlType();
+            $this->Template = $htmlType->generateTemplate($this->Template, $banner->row());
+        }
+
         if(!is_array($this->Template->banners)) return $this->Template;
 
         $arrBanners = $this->Template->banners;
@@ -40,6 +60,10 @@ class SingleBannerTemplate extends BannerSingle
             $objBanner = BannerModel::findByPk($arrBanner['banner_id']);
 
             if($objBanner === null) continue;
+
+            if ($objBanner->banner_type === static::BANNER_TYPE_HTML) {
+                $arrBanners[$i] = $arrBanner;
+            }
 
             if($objBanner->banner_type != static::BANNER_TYPE_INTERN) continue;
 
