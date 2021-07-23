@@ -19,7 +19,6 @@ use Contao\Database;
 use Contao\File;
 use Contao\FilesModel;
 use Contao\Image;
-use Contao\Model;
 use Contao\Picture;
 use Contao\StringUtil;
 use Contao\System;
@@ -45,10 +44,9 @@ class SingleBannerTemplate extends BannerSingle
 
         $this->Template = parent::getSingleBanner($module_id);
 
-        if ($banner->row()['banner_type'] === static::BANNER_TYPE_HTML) {
-
-            $htmlType = new HtmlType();
-            $this->Template = $htmlType->generateTemplate($this->Template, $banner->row());
+        if (in_array($banner->row()['banner_type'], HtmlType::BANNER_TYPES)) {
+            $this->Template->setName('mod_banner_list_html_ad');
+            $this->Template->banners = array_merge(is_array($this->Template->banners) ?: [] , [HtmlType::generateTemplate($banner->row())]) ;
         }
 
         if(!is_array($this->Template->banners)) return $this->Template;

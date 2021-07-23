@@ -9,20 +9,28 @@ namespace HeimrichHannot\BannerPlusBundle\Type;
 
 use Contao\FilesModel;
 use Contao\StringUtil;
-use Contao\Template;
 
 class HtmlType
 {
 
-    public function generateTemplate(Template $template, array $banner)
+    const BANNER_TYPE_HTML_INTERN = 'banner_html_intern';
+    const BANNER_TYPE_HTML_EXTERN = 'banner_html_extern';
+    const BANNER_TYPES = [
+        self::BANNER_TYPE_HTML_INTERN,
+        self::BANNER_TYPE_HTML_EXTERN
+    ];
+
+    public static function generateTemplate(array $banner): array
     {
+        $bannerUrl = '';
 
-        $htmlFile = FilesModel::findByUuid(StringUtil::binToUuid($banner['banner_html']));
-
-        if (!is_array($template->banners)) {
-            $template->banners = [];
+        if ($banner['banner_type'] === static::BANNER_TYPE_HTML_EXTERN) {
+            $bannerUrl = $banner['banner_url'];
+        } elseif ($banner['banner_type'] === static::BANNER_TYPE_HTML_INTERN) {
+            $bannerUrl = FilesModel::findByUuid(StringUtil::binToUuid($banner['banner_html']))->path;
         }
-        $banners = [[
+
+        return [
             "banner_key" => "bid=",
             "banner_wrap_id" => "",
             "banner_wrap_class" => "",
@@ -31,7 +39,7 @@ class HtmlType
             "banner_url" => $banner['banner_url'],
             "banner_target" => $banner['banner_target'] === '' ? ' target="_blank"': ' target="_self',
             "banner_comment" => $banner['comment'] ?: '',
-            "src" => $htmlFile->path,
+            "src" => $bannerUrl,
             "alt" => '',
             "size" => '',
             "banner_pic" => false,
@@ -40,11 +48,6 @@ class HtmlType
             "banner_empty" => false,
             "banner_html" => true,
             "picture" => []
-        ]];
-
-        $template->banners = $banners;
-
-        return $template;
-
+        ];
     }
 }
