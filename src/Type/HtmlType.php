@@ -10,7 +10,6 @@ namespace HeimrichHannot\BannerPlusBundle\Type;
 use Contao\Database;
 use Contao\FilesModel;
 use Contao\StringUtil;
-use Contao\System;
 
 class HtmlType
 {
@@ -33,8 +32,7 @@ class HtmlType
             ->execute( $banner_id );
 
         if (in_array($banner->row()['banner_type'], HtmlType::BANNER_TYPES)) {
-            $htmlType = System::getContainer()->get(HtmlType::class);
-            $banners = array_merge(is_array($banners) ?: [] , [$htmlType->generateTemplate($banner->row())]) ;
+            $banners = array_merge(is_array($banners) ? $banners : [] , [$this->generateTemplate($banner->row())]) ;
         }
 
         return $banners;

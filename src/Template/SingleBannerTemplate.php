@@ -47,7 +47,7 @@ class SingleBannerTemplate extends BannerSingle
 
             if (in_array($objBanner->banner_type, HtmlType::BANNER_TYPES)) {
                 $arrBanners[$i] = $arrBanner;
-                $this->Template->setName(HtmlType::BANNER_TEMPLATE);
+                $this->Template->setName($this->banner_template);
             }
 
             if($objBanner->banner_type != static::BANNER_TYPE_INTERN) continue;

@@ -39,7 +39,6 @@ class MultipleBannerTemplate extends BannerMultiple
 
             if (in_array($objBanner->banner_type, HtmlType::BANNER_TYPES)) {
                 $arrBanners[$i] = $arrBanner;
-                $this->Template->setName(HtmlType::BANNER_TEMPLATE);
             }
 
             if($objBanner->banner_type != static::BANNER_TYPE_INTERN) {

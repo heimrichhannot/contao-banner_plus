@@ -113,6 +113,6 @@ $arrFields = array
     ),
 );
 
-$dca['fields'] = array_merge($dca['fields'], $arrFields);
+$dca['fields'] = array_merge(is_array($dca['fields']) ? $dca['fields'] : [], $arrFields);
 
 $dca['palettes']['banner_image'] = str_replace('banner_imgSize', 'banner_imgSize,banner_image_left,banner_imgSize_left,banner_image_right,banner_imgSize_right,banner_animation', $dca['palettes']['banner_image']);
