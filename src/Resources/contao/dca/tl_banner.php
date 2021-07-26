@@ -9,21 +9,26 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-$dc = &$GLOBALS['TL_DCA']['tl_banner'];
+use HeimrichHannot\BannerPlusBundle\DataContainer\BannerContainer;
+
+$dca = &$GLOBALS['TL_DCA']['tl_banner'];
 
 /**
  * Palettes
  */
-//$dc['palettes']['banner_image_fireplace'] = str_replace('banner_image', 'banner_image,banner_image_left,banner_image_right',$dc['palettes']['banner_image']);
+//$dca['palettes']['banner_image_fireplace'] = str_replace('banner_image', 'banner_image,banner_image_left,banner_image_right',$dca['palettes']['banner_image']);
+
+
+$dca['list']['sorting']['child_record_callback'] = [BannerContainer::class, 'listBanner'];
 
 /**
  * Palettes : add multiple fields
  */
-foreach($dc['palettes'] as $strName => $strPalette)
+foreach($dca['palettes'] as $strName => $strPalette)
 {
 	if($strName == '__selector__') continue;
 
-	$dc['palettes'][$strName] = str_replace('banner_domain', 'addVisibility,pages,addPageDepth', $dc['palettes'][$strName]);
+	$dca['palettes'][$strName] = str_replace('banner_domain', 'addVisibility,pages,addPageDepth', $dca['palettes'][$strName]);
 }
 
 /**
@@ -108,6 +113,6 @@ $arrFields = array
     ),
 );
 
-$dc['fields'] = array_merge($dc['fields'], $arrFields);
+$dca['fields'] = array_merge($dca['fields'], $arrFields);
 
-$dc['palettes']['banner_image'] = str_replace('banner_imgSize', 'banner_imgSize,banner_image_left,banner_imgSize_left,banner_image_right,banner_imgSize_right,banner_animation', $dc['palettes']['banner_image']);
+$dca['palettes']['banner_image'] = str_replace('banner_imgSize', 'banner_imgSize,banner_image_left,banner_imgSize_left,banner_image_right,banner_imgSize_right,banner_animation', $dca['palettes']['banner_image']);

@@ -12,13 +12,19 @@
 namespace HeimrichHannot\BannerPlusBundle\EventListener;
 
 
+use Contao\System;
+use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
+
 class InitializeSystemListener
 {
+
     /**
      * @Hook("initializeSystem")
      */
     public function onInitializeSystem()
     {
+        $this->addBackendAssets();
+
         if (class_exists('HeimrichHannot\SlickBundle\HeimrichHannotContaoSlickBundle')) {
             $GLOBALS['TL_HOOKS']['compileSlickNewsList']['huh_banner_plus'] = [CompileSlickNewsListListener::class, 'onCompileSlickNewsList'];
         }
@@ -31,6 +37,15 @@ class InitializeSystemListener
                     $GLOBALS['TL_HOOKS']['replaceInsertTags'][$key] = [ReplaceInsertTagsListener::class, 'onReplaceInsertTags'];
                 }
             }
+        }
+    }
+
+    private function addBackendAssets()
+    {
+        $containerUtil = System::getContainer()->get(ContainerUtil::class);
+
+        if ($containerUtil->isBackend()) {
+            $GLOBALS['TL_JAVASCRIPT']['be_bannerplusbundle'] = 'bundles/heimrichhannotbannerplusbundle/assets/contao-banner-plus-bundle-be.js|static';
         }
     }
 }

@@ -7,12 +7,15 @@
 
 namespace HeimrichHannot\BannerPlusBundle\Type;
 
+use Contao\Database;
 use Contao\FilesModel;
 use Contao\StringUtil;
+use Contao\System;
 
 class HtmlType
 {
 
+    const BANNER_TEMPLATE = 'mod_banner_list_html_ad';
     const BANNER_TYPE_HTML_INTERN = 'banner_html_intern';
     const BANNER_TYPE_HTML_EXTERN = 'banner_html_extern';
     const BANNER_TYPES = [
@@ -20,7 +23,24 @@ class HtmlType
         self::BANNER_TYPE_HTML_EXTERN
     ];
 
-    public static function generateTemplate(array $banner): array
+    public function prepare($banners, $bannerBasic): array
+    {
+        $banner_keys = array_keys($bannerBasic);
+        $banner_id   = array_shift($banner_keys);
+
+        $banner = Database::getInstance()->prepare("SELECT TLB.* FROM tl_banner AS TLB WHERE TLB.`id`=?")
+            ->limit(1)
+            ->execute( $banner_id );
+
+        if (in_array($banner->row()['banner_type'], HtmlType::BANNER_TYPES)) {
+            $htmlType = System::getContainer()->get(HtmlType::class);
+            $banners = array_merge(is_array($banners) ?: [] , [$htmlType->generateTemplate($banner->row())]) ;
+        }
+
+        return $banners;
+    }
+
+    public function generateTemplate(array $banner): array
     {
         $bannerUrl = '';
 
