@@ -3,4 +3,4 @@ services:
     autowire: true
     public: true
 
-  HeimrichHannot\BannerPlusBundle\EventListener\InitializeSystemListener:
+  HeimrichHannot\BannerPlusBundle\EventListener\InitializeSystemListener: ~

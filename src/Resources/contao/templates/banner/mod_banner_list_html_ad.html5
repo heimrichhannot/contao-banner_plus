@@ -3,19 +3,20 @@
 <?php $this->block('content'); ?>
 
 <?php if (($this->headline) && (!$this->headline_stop)): ?>
-    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
 <?php endif; ?>
 <?php foreach ($this->banners as $banner): ?>
     <?php if ($banner['banner_html']) : ?>
-        <div class="banner_content_ad">
+        <div class="banner_header_ad banner_wrap<?php echo $banner['banner_wrap_class']; ?>"<?php echo $banner['banner_wrap_id']; ?>>
+            <a href="<?= $banner['banner_url'] ?>"<?= $banner['banner_target'] ?>></a>
             <iframe src="<?= $banner['src'] ?>" class="iframe-resized"></iframe>
         </div>
     <?php endif; ?>
-    <?php if ($banner['banner_empty']) : ?>
-        <div class="banner_empty">
-            <!-- <?php echo $banner['banner_name']; ?> -->
-        </div>
-    <?php endif; ?>
+	<?php if ($banner['banner_empty']) : ?>
+		<div class="banner_empty">
+			<!-- <?php echo $banner['banner_name']; ?> -->
+		</div>
+	<?php endif; ?>
 <?php endforeach; ?>
 
 <?php $this->endblock(); ?>

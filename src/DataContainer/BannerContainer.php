@@ -14,8 +14,6 @@ use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 
 class BannerContainer
 {
-
-
     /**
      * List banner record
      *
@@ -27,7 +25,8 @@ class BannerContainer
         switch ($row['banner_type'])
         {
             case HtmlType::BANNER_TYPE_HTML_INTERN:
-                return $this->listBannerInternalHtml($row);
+            case HtmlType::BANNER_TYPE_HTML_EXTERN:
+                return $this->listBannerHtml($row);
                 break;
             default :
                 $dcaBanner = new DcaBanner();
@@ -37,7 +36,7 @@ class BannerContainer
 
     }
 
-    public function listBannerInternalHtml(array $banner): string
+    public function listBannerHtml(array $banner): string
     {
 
         $bannerUrl = FilesModel::findByUuid(StringUtil::binToUuid($banner['banner_html']))->path;

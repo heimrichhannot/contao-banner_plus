@@ -73,7 +73,7 @@ class LoadDataContainerListener
 
         $dca['fields'] = array_merge(is_array($dca['fields']) ? $dca['fields'] : [], $fields);
 
-        $dca['palettes'][HtmlType::BANNER_TYPE_HTML_INTERN] = 'banner_type;{title_legend},banner_name,banner_weighting;{image_legend},banner_html;{comment_legend},banner_comment;{filter_legend:hide},banner_domain;{expert_legend:hide},banner_cssid;{publish_legend},banner_published,banner_start,banner_stop,banner_until';
-        $dca['palettes'][HtmlType::BANNER_TYPE_HTML_EXTERN] = 'banner_type;{title_legend},banner_name,banner_weighting;{destination_legend},banner_url;{comment_legend},banner_comment;{filter_legend:hide},banner_domain;{expert_legend:hide},banner_cssid;{publish_legend},banner_published,banner_start,banner_stop,banner_until';
+        $dca['palettes'][HtmlType::BANNER_TYPE_HTML_INTERN] = 'banner_type;{title_legend},banner_name,banner_weighting;{destination_legend},banner_url,banner_jumpTo,banner_target;{image_legend},banner_html;{comment_legend},banner_comment;{filter_legend:hide},addVisibility,pages,addPageDepth;{expert_legend:hide},banner_cssid;{publish_legend},banner_published,banner_start,banner_stop,banner_until';
+        $dca['palettes'][HtmlType::BANNER_TYPE_HTML_EXTERN] = 'banner_type;{title_legend},banner_name,banner_weighting;{destination_legend},banner_url,banner_jumpTo,banner_target;{comment_legend},banner_comment;{filter_legend:hide},addVisibility,pages,addPageDepth;{expert_legend:hide},banner_cssid;{publish_legend},banner_published,banner_start,banner_stop,banner_until';
     }
 }

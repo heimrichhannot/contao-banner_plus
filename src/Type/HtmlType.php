@@ -13,8 +13,6 @@ use Contao\StringUtil;
 
 class HtmlType
 {
-
-    const BANNER_TEMPLATE = 'mod_banner_list_html_ad';
     const BANNER_TYPE_HTML_INTERN = 'banner_html_intern';
     const BANNER_TYPE_HTML_EXTERN = 'banner_html_extern';
     const BANNER_TYPES = [
@@ -48,10 +46,12 @@ class HtmlType
             $bannerUrl = FilesModel::findByUuid(StringUtil::binToUuid($banner['banner_html']))->path;
         }
 
+        $cssId = StringUtil::deserialize($banner['banner_cssid'], true);
+
         return [
             "banner_key" => "bid=",
-            "banner_wrap_id" => "",
-            "banner_wrap_class" => "",
+            "banner_wrap_id" => $cssId[0] ? 'id="'. $cssId[0] . '"' : '',
+            "banner_wrap_class" => $cssId[1] ? ' '. $cssId[1] : '',
             "banner_id" => $banner['id'],
             "banner_name" => $banner['banner_name'],
             "banner_url" => $banner['banner_url'],
