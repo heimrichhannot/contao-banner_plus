@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-beta4] - 2021-07-27
+- added new banner type HTML(#1)
+- added encore configuration
+- added backend js
+
 ## [2.0.0-beta3] - 2020-02-18
 - fixed another dca install error
 
