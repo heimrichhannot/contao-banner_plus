@@ -17,10 +17,12 @@ use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
+use Contao\ManagerPlugin\Config\ConfigPluginInterface;
 use HeimrichHannot\BannerPlusBundle\ContaoBannerPlusBundle;
 use HeimrichHannot\SlickBundle\HeimrichHannotContaoSlickBundle;
+use Symfony\Component\Config\Loader\LoaderInterface;
 
-class Plugin implements BundlePluginInterface
+class Plugin implements BundlePluginInterface, ConfigPluginInterface
 {
 
     /**
@@ -38,5 +40,11 @@ class Plugin implements BundlePluginInterface
         return [
             BundleConfig::create(ContaoBannerPlusBundle::class)->setLoadAfter($loadAfter),
         ];
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
+    {
+        $loader->load('@ContaoBannerPlusBundle/Resources/config/services.yml');
+        $loader->load('@ContaoBannerPlusBundle/Resources/config/listeners.yml');
     }
 }

@@ -13,14 +13,17 @@ namespace HeimrichHannot\BannerPlusBundle\Template;
 
 
 use BugBuster\Banner\BannerMultiple;
+use Contao\System;
 use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
-use HeimrichHannot\MediaQuery\Viewport;
+use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 
 class MultipleBannerTemplate extends BannerMultiple
 {
     public function getMultiBanner($module_id)
     {
         $this->Template = parent::getMultiBanner($module_id);
+
+        $this->Template->banners = System::getContainer()->get(HtmlType::class)->prepare($this->Template->banners, $this->arrAllBannersBasic);
 
         if(!is_array($this->Template->banners)) return $this->Template;
 
@@ -32,6 +35,10 @@ class MultipleBannerTemplate extends BannerMultiple
 
             if($objBanner === null) {
                 continue;
+            }
+
+            if (in_array($objBanner->banner_type, HtmlType::BANNER_TYPES)) {
+                $arrBanners[$i] = $arrBanner;
             }
 
             if($objBanner->banner_type != static::BANNER_TYPE_INTERN) {

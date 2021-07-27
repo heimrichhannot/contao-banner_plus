@@ -1,1 +1,8 @@
-.idea/
+.idea
+Thumbs.db
+.DS_Store
+.sass-cache
+vendor
+component
+composer.lock
+node_modules

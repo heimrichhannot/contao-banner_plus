@@ -18,19 +18,23 @@ use BugBuster\Banner\BannerSingle;
 use Contao\File;
 use Contao\FilesModel;
 use Contao\Image;
-use Contao\Model;
 use Contao\Picture;
 use Contao\StringUtil;
 use Contao\System;
 use HeimrichHannot\BannerPlusBundle\Model\BannerCategoryModel;
 use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
+use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 use HeimrichHannot\MediaQuery\Viewport;
 
 class SingleBannerTemplate extends BannerSingle
 {
+
     public function getSingleBanner($module_id)
     {
-        $this->Template =  parent::getSingleBanner($module_id);
+        $this->Template = parent::getSingleBanner($module_id);
+
+        $this->Template->banners = System::getContainer()->get(HtmlType::class)->prepare($this->Template->banners, $this->arrAllBannersBasic);
+
         if(!is_array($this->Template->banners)) return $this->Template;
 
         $arrBanners = $this->Template->banners;
@@ -40,6 +44,11 @@ class SingleBannerTemplate extends BannerSingle
             $objBanner = BannerModel::findByPk($arrBanner['banner_id']);
 
             if($objBanner === null) continue;
+
+            if (in_array($objBanner->banner_type, HtmlType::BANNER_TYPES)) {
+                $arrBanners[$i] = $arrBanner;
+                $this->Template->setName($this->banner_template);
+            }
 
             if($objBanner->banner_type != static::BANNER_TYPE_INTERN) continue;
 

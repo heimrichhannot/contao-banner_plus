@@ -39,5 +39,10 @@ Setup fireplace ads. Add additional images to the fireplace image fields in your
 
 Add media queries to banner categories, to don't have non-visible ads tracked.
 
+#### HTML Banner
+
+Setup Html ads. Select HTML file from filesystem. For better usability and file management use new directory for every new add. Css and JavaScript files can be added to the directory too and linked inside the html file.
+HTML files will be loaded via iframe, so it is possible to have multiple links inside the banner. Links inside banner cannot be tracked. By selecting target url inside banner configuration, this link will be placed over the iframe. Clicks on the target link will be tracked as usual. 
+
 
 

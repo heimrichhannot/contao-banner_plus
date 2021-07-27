@@ -1,0 +1,9 @@
+{
+  "entrypoints": {
+    "contao-banner-plus-bundle-be": {
+      "js": [
+        "/bundles/heimrichhannotbannerplusbundle/assets/contao-banner-plus-bundle-be.js"
+      ]
+    }
+  }
+}

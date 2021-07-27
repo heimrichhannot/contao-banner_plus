@@ -13,9 +13,11 @@ namespace HeimrichHannot\BannerPlusBundle\EventListener;
 
 
 use Contao\ModuleLoader;
+use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 
 class LoadDataContainerListener
 {
+
     /**
      * @Hook("loadDataContainer")
      */
@@ -24,6 +26,9 @@ class LoadDataContainerListener
         switch ($table) {
             case 'tl_module':
                 $this->updateModuleDataContainer();
+                break;
+            case 'tl_banner':
+                $this->updateBannerDataContainer($table);
                 break;
         }
     }
@@ -40,5 +45,35 @@ class LoadDataContainerListener
                 $dc['palettes']['slick_newslist']
             );
         }
+    }
+
+    public function updateBannerDataContainer(string $table)
+    {
+        $dca = &$GLOBALS['TL_DCA'][$table];
+        $options = HtmlType::BANNER_TYPES;
+        $dca['fields']['banner_type']['options'] = array_merge(is_array($dca['fields']['banner_type']['options']) ? $dca['fields']['banner_type']['options'] : [], $options);
+
+        $fields = [
+            'banner_html' => [
+                'label'                   => &$GLOBALS['TL_LANG']['tl_banner']['banner_html'],
+                'explanation'	          => 'banner_html',
+                'inputType'               => 'fileTree',
+                'eval'                    => [
+                    'mandatory'=>true,
+                    'files'=>true,
+                    'filesOnly'=>true,
+                    'fieldType'=>'radio',
+                    'extensions'=>'html,html5',
+                    'maxlength'=>255,
+                    'helpwizard'=>true
+                ],
+                'sql'                     => "binary(16) NULL",
+            ]
+        ];
+
+        $dca['fields'] = array_merge(is_array($dca['fields']) ? $dca['fields'] : [], $fields);
+
+        $dca['palettes'][HtmlType::BANNER_TYPE_HTML_INTERN] = 'banner_type;{title_legend},banner_name,banner_weighting;{destination_legend},banner_url,banner_jumpTo,banner_target;{image_legend},banner_html;{comment_legend},banner_comment;{filter_legend:hide},addVisibility,pages,addPageDepth;{expert_legend:hide},banner_cssid;{publish_legend},banner_published,banner_start,banner_stop,banner_until';
+        $dca['palettes'][HtmlType::BANNER_TYPE_HTML_EXTERN] = 'banner_type;{title_legend},banner_name,banner_weighting;{destination_legend},banner_url,banner_jumpTo,banner_target;{comment_legend},banner_comment;{filter_legend:hide},addVisibility,pages,addPageDepth;{expert_legend:hide},banner_cssid;{publish_legend},banner_published,banner_start,banner_stop,banner_until';
     }
 }
