@@ -45,7 +45,7 @@ class InitializeSystemListener
         $containerUtil = System::getContainer()->get(ContainerUtil::class);
 
         if ($containerUtil->isBackend()) {
-            $GLOBALS['TL_JAVASCRIPT']['be_bannerplusbundle'] = 'bundles/heimrichhannotbannerplusbundle/assets/contao-banner-plus-bundle-be.js|static';
+            $GLOBALS['TL_JAVASCRIPT']['be_bannerplusbundle'] = 'bundles/contaobannerplus/assets/contao-banner-plus-bundle-be.js|static';
         }
     }
 }
