@@ -57,20 +57,20 @@ class BannerContainer
                     <div style="clear:both;"></div>
                     <div class="left">
                         <div class="date_head">'.$GLOBALS['TL_LANG']['tl_banner']['tl_be_start'].'</div>
-                        <div class="date_data">' . ($banner['banner_start']=='' ? $GLOBALS['TL_LANG']['tl_banner']['tl_be_not_defined_start'] : date($GLOBALS['TL_CONFIG']['datimFormat'], $row['banner_start'])) . '</div>
+                        <div class="date_data">' . ($banner['banner_start']=='' ? $GLOBALS['TL_LANG']['tl_banner']['tl_be_not_defined_start'] : date($GLOBALS['TL_CONFIG']['datimFormat'], $banner['banner_start'])) . '</div>
                     </div>
                     <div class="left">
                         <div class="date_head">'.$GLOBALS['TL_LANG']['tl_banner']['tl_be_stop'].'</div>
-                        <div class="date_data">' . ($banner['banner_stop'] =='' ? $GLOBALS['TL_LANG']['tl_banner']['tl_be_not_defined_stop'] : date($GLOBALS['TL_CONFIG']['datimFormat'], $row['banner_stop'])) . '</div>
+                        <div class="date_data">' . ($banner['banner_stop'] =='' ? $GLOBALS['TL_LANG']['tl_banner']['tl_be_not_defined_stop'] : date($GLOBALS['TL_CONFIG']['datimFormat'], $banner['banner_stop'])) . '</div>
                     </div>
                     <div style="clear:both;"></div>
                     <div class="left">
                         <div class="date_head">'.$GLOBALS['TL_LANG']['tl_banner']['tl_be_max_views'].'</div>
-                        <div class="date_data">' . ($banner['banner_views_until']=='' ? $GLOBALS['TL_LANG']['tl_banner']['tl_be_not_defined_max'] : $row['banner_views_until']) . '</div>
+                        <div class="date_data">' . ($banner['banner_views_until']=='' ? $GLOBALS['TL_LANG']['tl_banner']['tl_be_not_defined_max'] : $banner['banner_views_until']) . '</div>
                     </div>
                     <div class="left">
                         <div class="date_head">'.$GLOBALS['TL_LANG']['tl_banner']['tl_be_max_clicks'].'</div>
-                        <div class="date_data">' . ($banner['banner_clicks_until'] =='' ? $GLOBALS['TL_LANG']['tl_banner']['tl_be_not_defined_max'] : $row['banner_clicks_until']) . '</div>
+                        <div class="date_data">' . ($banner['banner_clicks_until'] =='' ? $GLOBALS['TL_LANG']['tl_banner']['tl_be_not_defined_max'] : $banner['banner_clicks_until']) . '</div>
                     </div>
                     <div style="clear:both;"></div>
                 </div>';

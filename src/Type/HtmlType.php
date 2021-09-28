@@ -60,6 +60,8 @@ class HtmlType
             "src" => $bannerUrl,
             "alt" => '',
             "size" => '',
+	    "banner_start" => $banner['banner_start'],
+	    "banner_end" => $banner['banner_end'],
             "banner_pic" => false,
             "banner_flash" => false,
             "banner_text" => false,
