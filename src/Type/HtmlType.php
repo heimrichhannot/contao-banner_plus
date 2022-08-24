@@ -49,7 +49,7 @@ class HtmlType
         $cssId = StringUtil::deserialize($banner['banner_cssid'], true);
 
         return [
-            "banner_key" => "bid=",
+            "banner_key" => "bid",
             "banner_wrap_id" => $cssId[0] ? 'id="'. $cssId[0] . '"' : '',
             "banner_wrap_class" => $cssId[1] ? ' '. $cssId[1] : '',
             "banner_id" => $banner['id'],

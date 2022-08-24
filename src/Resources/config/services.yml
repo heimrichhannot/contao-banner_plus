@@ -3,4 +3,8 @@ services:
     public: true
     autowire: true
 
+  HeimrichHannot\BannerPlusBundle\:
+    resource: '../../{EventListener}/*'
+    autoconfigure: true
+
   HeimrichHannot\BannerPlusBundle\Type\HtmlType: ~

@@ -12,16 +12,16 @@
 namespace HeimrichHannot\BannerPlusBundle\EventListener;
 
 
+use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\ModuleLoader;
 use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 
+/**
+ * @Hook("loadDataContainer")
+ */
 class LoadDataContainerListener
 {
-
-    /**
-     * @Hook("loadDataContainer")
-     */
-    public function onLoadDataContainer(string $table): void
+    public function __invoke(string $table): void
     {
         switch ($table) {
             case 'tl_module':
@@ -33,7 +33,7 @@ class LoadDataContainerListener
         }
     }
 
-    public function updateModuleDataContainer()
+    public function updateModuleDataContainer(): void
     {
         $dc = &$GLOBALS['TL_DCA']['tl_module'];
         $active = ModuleLoader::getActive();
@@ -47,7 +47,7 @@ class LoadDataContainerListener
         }
     }
 
-    public function updateBannerDataContainer(string $table)
+    public function updateBannerDataContainer(string $table): void
     {
         $dca = &$GLOBALS['TL_DCA'][$table];
         $options = HtmlType::BANNER_TYPES;

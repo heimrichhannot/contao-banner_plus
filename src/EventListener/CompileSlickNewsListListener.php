@@ -27,7 +27,6 @@ class CompileSlickNewsListListener
      */
     public function onCompileSlickNewsList(&$objTemplate, $frontendModule, $objModel)
     {
-
         $slickBannerGenerator = new SlickBannerTemplate();
         $slickBannerGenerator->generateSlickBanner($objTemplate, $frontendModule, $objModel);
     }

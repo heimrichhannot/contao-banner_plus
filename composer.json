@@ -17,24 +17,16 @@
         "issues":"https://github.com/heimrichhannot/contao-banner_plus/issues"
     },
     "require": {
-        "php": "~7.1",
-        "contao/core-bundle": "~4.4",
-        "bugbuster/contao-banner-bundle": "1.0.10.*",
-        "heimrichhannot/contao-mediaquery": "^1.1"
+        "php": "^7.2 || ^8.0",
+        "contao/core-bundle": "~4.9",
+        "bugbuster/contao-banner-bundle": ">=1.0.11 <1.4",
+        "heimrichhannot/contao-mediaquery": "^1.1",
+        "heimrichhannot/contao-utils-bundle": "^2.218"
     },
     "autoload": {
         "psr-4": {
             "HeimrichHannot\\BannerPlusBundle\\": "src/"
-        },
-        "classmap": [
-            "src/Resources/contao/"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config/",
-            "src/Resources/contao/dca/",
-            "src/Resources/contao/languages/",
-            "src/Resources/contao/templates/"
-        ]
+        }
     },
     "extra": {
         "contao-manager-plugin": "HeimrichHannot\\BannerPlusBundle\\ContaoManager\\Plugin"

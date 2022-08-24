@@ -12,11 +12,20 @@
 namespace HeimrichHannot\BannerPlusBundle\EventListener;
 
 
-use Contao\System;
-use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
+use Contao\CoreBundle\ServiceAnnotation\Hook;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 
+/**
+ * @Hook("initializeSystem")
+ */
 class InitializeSystemListener
 {
+    private Utils $utils;
+
+    public function __construct(Utils $utils)
+    {
+        $this->utils = $utils;
+    }
 
     /**
      * @Hook("initializeSystem")
@@ -42,9 +51,7 @@ class InitializeSystemListener
 
     private function addBackendAssets()
     {
-        $containerUtil = System::getContainer()->get(ContainerUtil::class);
-
-        if ($containerUtil->isBackend()) {
+        if ($this->utils->container()->isBackend()) {
             $GLOBALS['TL_JAVASCRIPT']['be_bannerplusbundle'] = 'bundles/contaobannerplus/assets/contao-banner-plus-bundle-be.js|static';
         }
     }

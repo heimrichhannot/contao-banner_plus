@@ -9,9 +9,6 @@
  */
 
 
-$GLOBALS['TL_HOOKS']['initializeSystem']['huh_banner_plus'] = [\HeimrichHannot\BannerPlusBundle\EventListener\InitializeSystemListener::class, 'onInitializeSystem'];
-$GLOBALS['TL_HOOKS']['loadDataContainer']['huh_banner_plus'] = [\HeimrichHannot\BannerPlusBundle\EventListener\LoadDataContainerListener::class, 'onLoadDataContainer'];
-
 $GLOBALS['TL_MODELS']['tl_banner'] = \HeimrichHannot\BannerPlusBundle\Model\BannerModel::class;
 $GLOBALS['TL_MODELS']['tl_banner_category'] = \HeimrichHannot\BannerPlusBundle\Model\BannerCategoryModel::class;
 
