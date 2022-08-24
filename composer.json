@@ -17,9 +17,9 @@
         "issues":"https://github.com/heimrichhannot/contao-banner_plus/issues"
     },
     "require": {
-        "php": "~7.1",
+        "php": "^7.2 || ^8.0",
         "contao/core-bundle": "~4.9",
-        "bugbuster/contao-banner-bundle": "1.0.11-1.0.12",
+        "bugbuster/contao-banner-bundle": ">=1.0.11 <1.4",
         "heimrichhannot/contao-mediaquery": "^1.1"
     },
     "autoload": {

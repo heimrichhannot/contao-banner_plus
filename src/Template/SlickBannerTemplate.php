@@ -17,6 +17,7 @@ use Contao\FrontendTemplate;
 use Contao\Module;
 use Contao\ModuleModel;
 use HeimrichHannot\BannerPlusBundle\Helper\SliderDisplayFormatHelper;
+use HeimrichHannot\SlickBundle\ModuleSlickEventList;
 use HeimrichHannot\SlickBundle\ModuleSlickNewsList;
 
 /**
@@ -35,7 +36,7 @@ class SlickBannerTemplate extends BannerTemplate
      */
     public function generateSlickBanner(&$template, $frontendModule, $model)
     {
-        $this->getModuleData($frontendModule->id);
+        $this->getModuleData($frontendModule->id, ['banner', ModuleSlickNewsList::TYPE, ModuleSlickEventList::TYPE]);
         if (false === $this->bannerHelperInit())
         {
             //kein Banner Modul mit dieser ID

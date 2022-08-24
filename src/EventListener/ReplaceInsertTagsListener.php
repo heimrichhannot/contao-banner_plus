@@ -16,9 +16,6 @@ use HeimrichHannot\BannerPlusBundle\Template\BannerTemplate;
 
 class ReplaceInsertTagsListener
 {
-    /**
-     * @Hook("replaceInsertTags")
-     */
     public function onReplaceInsertTags(string $insertTag)
     {
         $bannerGenerator = new BannerTemplate();

@@ -30,7 +30,7 @@ class BannerTemplate extends BannerInsertTag
      * @param integer $moduleId
      * @return boolean
      */
-    protected function getModuleData($moduleId)
+    protected function getModuleData($moduleId, array $allowedType = ['banner']): bool
     {
         $this->module_id = $moduleId; //for RandomBlocker Session
         $objBannerModule = Database::getInstance()->prepare("SELECT 
@@ -47,7 +47,7 @@ class BannerTemplate extends BannerInsertTag
                                                                 WHERE 
                                                                     id=?")
             ->execute($moduleId);
-        if ($objBannerModule->numRows == 0) {
+        if ($objBannerModule->numRows == 0 || !in_array($objBannerModule['type'], $allowedType)) {
             return false;
         }
         $this->banner_hideempty  = $objBannerModule->banner_hideempty;
@@ -69,24 +69,21 @@ class BannerTemplate extends BannerInsertTag
     protected function generateBanner()
     {
         //DEBUG log_message('generateBanner banner_categories:'.$this->banner_categories,'Banner.log');
-        if ($this->bannerHelperInit() === false)
-        {
+        if ($this->bannerHelperInit() === false) {
             BannerLog::log('Problem in bannerHelperInit', 'ModuleBannerTag generateBanner', TL_ERROR);
             return false;
         }
 
-        if ($this->statusBannerFrontendGroupView === false)
-        {
+        if ($this->statusBannerFrontendGroupView === false) {
             // Eingeloggter FE Nutzer darf nichts sehen, falsche Gruppe
             // auf Leer umschalten
-            $this->strTemplate='mod_banner_empty';
-            $this->Template = new \FrontendTemplate($this->strTemplate);
+            $this->strTemplate = 'mod_banner_empty';
+            $this->Template    = new \FrontendTemplate($this->strTemplate);
             return $this->Template->parse();
         }
         $this->Template = new \FrontendTemplate($this->strTemplate);
 
-        if ($this->statusAllBannersBasic === false)
-        {
+        if ($this->statusAllBannersBasic === false) {
             //keine Banner vorhanden in der Kategorie
             //default Banner holen
             //kein default Banner, ausblenden wenn leer?
@@ -99,19 +96,16 @@ class BannerTemplate extends BannerInsertTag
 
         //OK, Banner vorhanden, dann weiter
         //BannerSeen vorhanden? Dann beachten.
-        if ( count(BannerHelper::$arrBannerSeen) )  //TODO
+        if (count(BannerHelper::$arrBannerSeen))  //TODO
         {
             //$arrAllBannersBasic dezimieren um die bereits angezeigten
-            foreach (BannerHelper::$arrBannerSeen as $BannerSeenID)
-            {
-                if (array_key_exists($BannerSeenID,$this->arrAllBannersBasic))
-                {
+            foreach (BannerHelper::$arrBannerSeen as $BannerSeenID) {
+                if (array_key_exists($BannerSeenID, $this->arrAllBannersBasic)) {
                     unset($this->arrAllBannersBasic[$BannerSeenID]);
                 };
             }
             //noch Banner übrig?
-            if ( count($this->arrAllBannersBasic) == 0 )
-            {
+            if (count($this->arrAllBannersBasic) == 0) {
                 //default Banner holen
                 //kein default Banner, ausblenden wenn leer?
                 $this->getDefaultBanner();
@@ -123,29 +117,23 @@ class BannerTemplate extends BannerInsertTag
 
         //OK, noch Banner übrig, weiter gehts
         //Single Banner?
-        if ($this->arrCategoryValues['banner_numbers'] != 1)
-        {
+        if ($this->arrCategoryValues['banner_numbers'] != 1) {
             //FirstViewBanner?
             $objBannerLogic = new BannerLogic();
 
-            if ($objBannerLogic->getSetFirstView($this->banner_firstview,$this->banner_categories,$this->module_id) === true)
-            {
+            if ($objBannerLogic->getSetFirstView($this->banner_firstview, $this->banner_categories, $this->module_id) === true) {
                 $this->getSingleBannerFirst();
                 //Css generieren
                 $this->setCssClassIdStyle();
                 return $this->Template->parse();
-            }
-            else
-            {
+            } else {
                 //single banner
                 $this->getSingleBanner();
                 //Css generieren
                 $this->setCssClassIdStyle();
                 return $this->Template->parse();
             }
-        }
-        else
-        {
+        } else {
             //multi banner
             $this->getMultiBanner();
             //Css generieren
@@ -198,18 +186,15 @@ class BannerTemplate extends BannerInsertTag
              * (exclude == display module not on this page)
              * (include == display module only on this page)
              */
-            if(is_array($arrPages) && count($arrPages) > 0)
-            {
+            if (is_array($arrPages) && count($arrPages) > 0) {
                 // add nested pages to the filter
-                if($bannerModel->addPageDepth)
-                {
+                if ($bannerModel->addPageDepth) {
                     $arrPages = array_merge($arrPages, Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
                 }
 
                 $check = ($bannerModel->addVisibility == 'exclude') ? true : false;
 
-                if(in_array($objPage->id, $arrPages) == $check)
-                {
+                if (in_array($objPage->id, $arrPages) == $check) {
                     unset($this->arrAllBannersBasic[$bannerId]);
                 }
             }

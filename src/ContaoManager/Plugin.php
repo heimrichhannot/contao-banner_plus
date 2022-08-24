@@ -45,6 +45,5 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
     {
         $loader->load('@ContaoBannerPlusBundle/Resources/config/services.yml');
-        $loader->load('@ContaoBannerPlusBundle/Resources/config/listeners.yml');
     }
 }
