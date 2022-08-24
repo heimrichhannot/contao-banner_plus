@@ -47,7 +47,7 @@ class BannerTemplate extends BannerInsertTag
                                                                 WHERE 
                                                                     id=?")
             ->execute($moduleId);
-        if ($objBannerModule->numRows == 0 || !in_array($objBannerModule['type'], $allowedType)) {
+        if ($objBannerModule->numRows == 0 || !in_array($objBannerModule->type, $allowedType)) {
             return false;
         }
         $this->banner_hideempty  = $objBannerModule->banner_hideempty;
