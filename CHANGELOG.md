@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2022-08-24
+- Added: support for newer banner version and drop support for older ones ([#14])
+- Changed: minumum contao version is now 4.9
+- Changed: minumum php version is now 7.2
+- Changed: code enhancements and refactoring
+
 ## [2.0.0] - 2022-08-24
 Same as beta 6
 
