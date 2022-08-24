@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2022-08-24
+Same as beta 6
+
 ## [2.0.0-beta6] - 2021-09-28
 - fixed banner_start and banner_end to be displayed correctly in backend
 
