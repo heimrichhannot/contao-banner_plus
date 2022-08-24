@@ -41,7 +41,8 @@ class BannerTemplate extends BannerInsertTag
                                                         	        banner_redirect,
                                                         	        banner_useragent,
                                                                     cssID,
-                                                                    headline 
+                                                                    headline,
+                                                                    type
                                                                 FROM  
                                                                     tl_module 
                                                                 WHERE 
@@ -146,7 +147,7 @@ class BannerTemplate extends BannerInsertTag
     protected function getDefaultBanner(): void
     {
         $objBannerSingle = new SingleBannerTemplate($this->arrCategoryValues, $this->banner_template, $this->strTemplate, $this->Template, $this->arrAllBannersBasic);
-        $this->Template  = $objBannerSingle->getDefaultBanner($this->banner_hideempty);
+        $this->Template  = $objBannerSingle->getDefaultBanner($this->banner_hideempty, $this->module_id);
     }
 
     protected function getSingleBannerFirst(): void
