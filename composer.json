@@ -18,23 +18,14 @@
     },
     "require": {
         "php": "~7.1",
-        "contao/core-bundle": "~4.4",
-        "bugbuster/contao-banner-bundle": "1.0.10.*",
+        "contao/core-bundle": "~4.9",
+        "bugbuster/contao-banner-bundle": "1.0.11-1.0.12",
         "heimrichhannot/contao-mediaquery": "^1.1"
     },
     "autoload": {
         "psr-4": {
             "HeimrichHannot\\BannerPlusBundle\\": "src/"
-        },
-        "classmap": [
-            "src/Resources/contao/"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config/",
-            "src/Resources/contao/dca/",
-            "src/Resources/contao/languages/",
-            "src/Resources/contao/templates/"
-        ]
+        }
     },
     "extra": {
         "contao-manager-plugin": "HeimrichHannot\\BannerPlusBundle\\ContaoManager\\Plugin"
