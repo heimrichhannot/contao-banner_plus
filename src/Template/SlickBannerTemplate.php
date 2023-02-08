@@ -17,8 +17,8 @@ use Contao\FrontendTemplate;
 use Contao\Module;
 use Contao\ModuleModel;
 use HeimrichHannot\BannerPlusBundle\Helper\SliderDisplayFormatHelper;
-use HeimrichHannot\SlickBundle\ModuleSlickEventList;
-use HeimrichHannot\SlickBundle\ModuleSlickNewsList;
+use HeimrichHannot\SlickBundle\Module\ModuleSlickEventList;
+use HeimrichHannot\SlickBundle\Module\ModuleSlickNewsList;
 
 /**
  * Class SlickBannerGenerator

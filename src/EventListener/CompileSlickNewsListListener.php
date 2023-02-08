@@ -15,7 +15,7 @@ namespace HeimrichHannot\BannerPlusBundle\EventListener;
 use Contao\FrontendTemplate;
 use Contao\ModuleModel;
 use HeimrichHannot\BannerPlusBundle\Template\SlickBannerTemplate;
-use HeimrichHannot\SlickBundle\ModuleSlickNewsList;
+use HeimrichHannot\SlickBundle\Module\ModuleSlickNewsList;
 
 class CompileSlickNewsListListener
 {

@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.1.1] - 2023-02-08
+- Fixed: slick bundle compatibility
+
 ## [2.1.0] - 2022-08-24
 - Added: support for newer banner version and drop support for older ones ([#14])
 - Changed: minumum contao version is now 4.9

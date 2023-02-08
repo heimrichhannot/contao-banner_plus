@@ -13,6 +13,7 @@ namespace HeimrichHannot\BannerPlusBundle\EventListener;
 
 
 use Contao\CoreBundle\ServiceAnnotation\Hook;
+use HeimrichHannot\SlickBundle\HeimrichHannotContaoSlickBundle;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 
 /**
@@ -34,15 +35,12 @@ class InitializeSystemListener
     {
         $this->addBackendAssets();
 
-        if (class_exists('HeimrichHannot\SlickBundle\HeimrichHannotContaoSlickBundle')) {
+        if (class_exists(HeimrichHannotContaoSlickBundle::class)) {
             $GLOBALS['TL_HOOKS']['compileSlickNewsList']['huh_banner_plus'] = [CompileSlickNewsListListener::class, 'onCompileSlickNewsList'];
         }
-        if(isset($GLOBALS['TL_HOOKS']['replaceInsertTags']) && is_array($GLOBALS['TL_HOOKS']['replaceInsertTags']))
-        {
-            foreach($GLOBALS['TL_HOOKS']['replaceInsertTags'] as $key => $arrConfig)
-            {
-                if($arrConfig[0] == 'BugBuster\Banner\BannerInsertTag')
-                {
+        if (isset($GLOBALS['TL_HOOKS']['replaceInsertTags']) && is_array($GLOBALS['TL_HOOKS']['replaceInsertTags'])) {
+            foreach ($GLOBALS['TL_HOOKS']['replaceInsertTags'] as $key => $arrConfig) {
+                if ($arrConfig[0] == 'BugBuster\Banner\BannerInsertTag') {
                     $GLOBALS['TL_HOOKS']['replaceInsertTags'][$key] = [ReplaceInsertTagsListener::class, 'onReplaceInsertTags'];
                 }
             }

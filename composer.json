@@ -23,6 +23,9 @@
         "heimrichhannot/contao-mediaquery": "^1.1",
         "heimrichhannot/contao-utils-bundle": "^2.218"
     },
+    "conflict": {
+        "heimrichhannot/contao-slick-bundle": "<1.8.2"
+    },
     "autoload": {
         "psr-4": {
             "HeimrichHannot\\BannerPlusBundle\\": "src/"
