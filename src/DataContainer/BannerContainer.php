@@ -77,7 +77,7 @@ class BannerContainer
 
         $key = $banner['banner_published'] ? 'published' : 'unpublished';
         $style = 'style="font-size:11px;margin-bottom:10px;"';
-        $output_h = '<div class="cte_type ' . $key . '" ' . $style . '><strong>' . StringUtil::specialchars(ampersand($banner['banner_name'])) . '</strong></div>';
+        $output_h = '<div class="cte_type ' . $key . '" ' . $style . '><strong>' . StringUtil::specialchars(StringUtil::ampersand($banner['banner_name'])) . '</strong></div>';
 
         return $output_h . $html;
     }

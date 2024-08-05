@@ -6,12 +6,12 @@ class BannerPlusBundleBE {
     }
 
     static initIframeResizer() {
-        // iFrameResize({
-        //     log: false,
-        //     checkOrigin: false,
-        //     heightCalculationMethod: 'documentElementOffset'
-        // }, '.iframe-resized');
-        //
+        iFrameResize({
+            log: false,
+            checkOrigin: false,
+            heightCalculationMethod: 'documentElementOffset'
+        }, '.iframe-resized');
+
         let iframes = document.querySelectorAll('.iframe-resized');
         iframes.forEach( iframe => {
             iframe.addEventListener('load', e => {

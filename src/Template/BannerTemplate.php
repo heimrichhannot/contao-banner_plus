@@ -17,6 +17,7 @@ use BugBuster\Banner\BannerInsertTag;
 use BugBuster\Banner\BannerLog;
 use BugBuster\Banner\BannerLogic;
 use Contao\Database;
+use Contao\FrontendTemplate;
 use Contao\StringUtil;
 use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
 
@@ -79,10 +80,10 @@ class BannerTemplate extends BannerInsertTag
             // Eingeloggter FE Nutzer darf nichts sehen, falsche Gruppe
             // auf Leer umschalten
             $this->strTemplate = 'mod_banner_empty';
-            $this->Template    = new \FrontendTemplate($this->strTemplate);
+            $this->Template    = new FrontendTemplate($this->strTemplate);
             return $this->Template->parse();
         }
-        $this->Template = new \FrontendTemplate($this->strTemplate);
+        $this->Template = new FrontendTemplate($this->strTemplate);
 
         if ($this->statusAllBannersBasic === false) {
             //keine Banner vorhanden in der Kategorie
