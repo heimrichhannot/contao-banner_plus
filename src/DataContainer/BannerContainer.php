@@ -49,7 +49,7 @@ class BannerContainer
 
         $bannerUrl = FilesModel::findByUuid(StringUtil::binToUuid($banner['banner_html']))->path;
 
-        $html = '<div class="mod_banner_be">
+        $html = '<div class="mod_banner_be limit_height h120">
                 <div class="name">
                     <iframe src="'.$bannerUrl.'" class="iframe-resized"></iframe>
                 </div>
