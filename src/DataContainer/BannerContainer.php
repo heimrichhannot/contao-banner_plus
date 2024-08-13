@@ -8,12 +8,21 @@
 namespace HeimrichHannot\BannerPlusBundle\DataContainer;
 
 use BugBuster\Banner\DcaBanner;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
+use Contao\DataContainer;
 use Contao\FilesModel;
 use Contao\StringUtil;
 use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 
 class BannerContainer
 {
+
+    #[AsCallback(table: 'tl_banner', target: 'config.onload')]
+    public function onConfigLoadCallback(DataContainer|null $dc): void
+    {
+        $GLOBALS['TL_JAVASCRIPT']['banner_plus-html-banner'] = 'bundles/contaobannerplus/assets/banner_plus-html-banner.js';
+    }
+
     /**
      * List banner record
      *
@@ -21,7 +30,6 @@ class BannerContainer
      */
     public function listBanner(array $row): string
     {
-
         switch ($row['banner_type'])
         {
             case HtmlType::BANNER_TYPE_HTML_INTERN:
@@ -41,7 +49,7 @@ class BannerContainer
 
         $bannerUrl = FilesModel::findByUuid(StringUtil::binToUuid($banner['banner_html']))->path;
 
-        $html = '<div class="mod_banner_be">
+        $html = '<div class="mod_banner_be limit_height h120">
                 <div class="name">
                     <iframe src="'.$bannerUrl.'" class="iframe-resized"></iframe>
                 </div>
@@ -77,7 +85,7 @@ class BannerContainer
 
         $key = $banner['banner_published'] ? 'published' : 'unpublished';
         $style = 'style="font-size:11px;margin-bottom:10px;"';
-        $output_h = '<div class="cte_type ' . $key . '" ' . $style . '><strong>' . StringUtil::specialchars(ampersand($banner['banner_name'])) . '</strong></div>';
+        $output_h = '<div class="cte_type ' . $key . '" ' . $style . '><strong>' . StringUtil::specialchars(StringUtil::ampersand($banner['banner_name'])) . '</strong></div>';
 
         return $output_h . $html;
     }

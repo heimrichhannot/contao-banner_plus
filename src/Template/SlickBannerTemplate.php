@@ -40,7 +40,7 @@ class SlickBannerTemplate extends BannerTemplate
         if (false === $this->bannerHelperInit())
         {
             //kein Banner Modul mit dieser ID
-            BannerLog::log('No banner module with this id "'.$frontendModule->id.'"', 'CompileSlickNewsListListener onCompileSlickNewsList', TL_ERROR);
+            BannerLog::log('No banner module with this id "'.$frontendModule->id.'"', __METHOD__ .':'. __LINE__, TL_ERROR);
             return false;
         }
 

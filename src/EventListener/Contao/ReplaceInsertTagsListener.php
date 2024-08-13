@@ -9,14 +9,16 @@
  */
 
 
-namespace HeimrichHannot\BannerPlusBundle\EventListener;
+namespace HeimrichHannot\BannerPlusBundle\EventListener\Contao;
 
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use HeimrichHannot\BannerPlusBundle\Template\BannerTemplate;
 
+#[AsHook("replaceInsertTags", priority: 10)]
 class ReplaceInsertTagsListener
 {
-    public function onReplaceInsertTags(string $insertTag)
+    public function __invoke(string $insertTag)
     {
         $bannerGenerator = new BannerTemplate();
         return $bannerGenerator->replaceInsertTagsBanner($insertTag);

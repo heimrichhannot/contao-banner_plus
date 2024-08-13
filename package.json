@@ -2,15 +2,14 @@
     "name": "contao-banner-plus-bundle",
     "version": "1.0.0",
     "description": "This bundle extends the capacity of bugbuster/banner-bundle.",
-    "dependencies": {
-        "iframe-resizer": "^4.3.2"
-    },
+    "license": "LGPL-3.0-or-later",
+    "dependencies": {},
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.30",
+        "@symfony/webpack-encore": "^1.8",
         "autoprefixer": "^9.1.5",
-        "node-sass": "^4.13.1",
-        "postcss-loader": "^3.0.0",
-        "sass-loader": "^8.0.0"
+        "postcss-loader": "^6.0.0",
+        "sass": "^1.77.8",
+        "sass-loader": "^11.0.0"
     },
     "scripts": {
         "build-dev": "yarn encore dev",

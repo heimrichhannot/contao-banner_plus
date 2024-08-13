@@ -9,6 +9,9 @@
  */
 
 
-$GLOBALS['TL_MODELS']['tl_banner'] = \HeimrichHannot\BannerPlusBundle\Model\BannerModel::class;
-$GLOBALS['TL_MODELS']['tl_banner_category'] = \HeimrichHannot\BannerPlusBundle\Model\BannerCategoryModel::class;
+use HeimrichHannot\BannerPlusBundle\Model\BannerCategoryModel;
+use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
+
+$GLOBALS['TL_MODELS']['tl_banner'] = BannerModel::class;
+$GLOBALS['TL_MODELS']['tl_banner_category'] = BannerCategoryModel::class;
 
