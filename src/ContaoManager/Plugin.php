@@ -19,7 +19,7 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Config\ConfigPluginInterface;
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
-use HeimrichHannot\BannerPlusBundle\ContaoBannerPlusBundle;
+use HeimrichHannot\BannerPlusBundle\HeimrichHannotBannerPlusBundle;
 use HeimrichHannot\SlickBundle\HeimrichHannotContaoSlickBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -41,7 +41,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
             $loadAfter[] = HeimrichHannotContaoSlickBundle::class;
         }
         return [
-            BundleConfig::create(ContaoBannerPlusBundle::class)->setLoadAfter($loadAfter),
+            BundleConfig::create(HeimrichHannotBannerPlusBundle::class)->setLoadAfter($loadAfter),
         ];
     }
 

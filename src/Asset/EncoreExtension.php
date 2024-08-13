@@ -2,7 +2,7 @@
 
 namespace HeimrichHannot\BannerPlusBundle\Asset;
 
-use HeimrichHannot\BannerPlusBundle\ContaoBannerPlusBundle;
+use HeimrichHannot\BannerPlusBundle\HeimrichHannotBannerPlusBundle;
 use HeimrichHannot\EncoreContracts\EncoreEntry;
 use HeimrichHannot\EncoreContracts\EncoreExtensionInterface;
 
@@ -14,7 +14,7 @@ class EncoreExtension implements EncoreExtensionInterface
      */
     public function getBundle(): string
     {
-        return ContaoBannerPlusBundle::class;
+        return HeimrichHannotBannerPlusBundle::class;
     }
 
     /**

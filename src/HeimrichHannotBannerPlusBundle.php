@@ -14,7 +14,7 @@ namespace HeimrichHannot\BannerPlusBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class ContaoBannerPlusBundle extends Bundle
+class HeimrichHannotBannerPlusBundle extends Bundle
 {
 
 }
