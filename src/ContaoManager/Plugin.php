@@ -47,11 +47,11 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
 
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
     {
-        $loader->load('@ContaoBannerPlusBundle/Resources/config/services.yml');
+        $loader->load('@HeimrichHannotBannerPlusBundle/config/services.yaml');
     }
 
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
     {
-        return $resolver->resolve(__DIR__.'/../Resources/config/routes.yaml')->load(__DIR__.'/../Resources/config/routes.yaml');
+        return $resolver->resolve('@HeimrichHannotBannerPlusBundle/config/routes.yaml')->load('@HeimrichHannotBannerPlusBundle/config/routes.yaml');
     }
 }

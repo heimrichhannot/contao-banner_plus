@@ -20,7 +20,7 @@ class BannerContainer
     #[AsCallback(table: 'tl_banner', target: 'config.onload')]
     public function onConfigLoadCallback(DataContainer|null $dc): void
     {
-        $GLOBALS['TL_JAVASCRIPT']['banner_plus-html-banner'] = 'bundles/contaobannerplus/assets/banner_plus-html-banner.js';
+        $GLOBALS['TL_JAVASCRIPT']['banner_plus-html-banner'] = 'bundles/heimrichhannotbannerplus/assets/banner_plus-html-banner.js';
     }
 
     /**

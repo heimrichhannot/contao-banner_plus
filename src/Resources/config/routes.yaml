@@ -1,3 +1,0 @@
-contao-banner-plus-bundle:
-  resource: "@ContaoBannerPlusBundle/Controller/"
-  type: annotation
