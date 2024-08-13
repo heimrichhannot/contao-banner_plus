@@ -6,7 +6,7 @@ This bundle brings enhancements to [BugBusters contao-banner-bundle](https://git
 - add better page filter, with page depth inheritance and include/except pattern to banners
 - [Slick support](https://github.com/heimrichhannot/contao-slick-bundle) - display adds within your slick newslist module
 - fireplace ads
-- html banner support
+git - html banner support
 
 ## Setup
 
