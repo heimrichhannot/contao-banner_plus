@@ -8,7 +8,6 @@
 namespace HeimrichHannot\BannerPlusBundle\Type;
 
 use Contao\Database;
-use Contao\FilesModel;
 use Contao\StringUtil;
 use HeimrichHannot\EncoreContracts\PageAssetsTrait;
 use Symfony\Component\Routing\RouterInterface;
