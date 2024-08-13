@@ -1,13 +1,22 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.2.0] - 2024-08-13
+- Added: encore contracts support
+- Added: BeforeRenderBannerEvent
+- Changed: require contao 4.13
+- Changed: require at least php 8.1
+- Changed: iframe resizing now uses own js (stopped using and bundling iframe resizer!)
+- Changed: use custom route for internal html banners (fix issues with local paths)
+- Changed: some code modernization
+
 ## [2.1.1] - 2023-02-08
 - Fixed: slick bundle compatibility
 
 ## [2.1.0] - 2022-08-24
 - Added: support for newer banner version and drop support for older ones ([#14](https://github.com/heimrichhannot/contao-banner_plus/pull/14))
-- Changed: minumum contao version is now 4.9
-- Changed: minumum php version is now 7.2
+- Changed: minimum contao version is now 4.9
+- Changed: minimum php version is now 7.2
 - Changed: code enhancements and refactoring
 
 ## [2.0.0] - 2022-08-24

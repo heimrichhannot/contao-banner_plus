@@ -7,6 +7,7 @@ This bundle brings enhancements to [BugBusters contao-banner-bundle](https://git
 - [Slick support](https://github.com/heimrichhannot/contao-slick-bundle) - display adds within your slick newslist module
 - fireplace ads
 - media query support to track banner views only if visible by user window dimension 
+- html banner support
 
 ## Setup
 
