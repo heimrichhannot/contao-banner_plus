@@ -8,12 +8,21 @@
 namespace HeimrichHannot\BannerPlusBundle\DataContainer;
 
 use BugBuster\Banner\DcaBanner;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
+use Contao\DataContainer;
 use Contao\FilesModel;
 use Contao\StringUtil;
 use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 
 class BannerContainer
 {
+
+    #[AsCallback(table: 'tl_banner', target: 'config.onload')]
+    public function onConfigLoadCallback(DataContainer|null $dc): void
+    {
+        $GLOBALS['TL_JAVASCRIPT']['banner_plus-html-banner'] = 'bundles/contaobannerplus/assets/banner_plus-html-banner.js';
+    }
+
     /**
      * List banner record
      *
@@ -21,7 +30,6 @@ class BannerContainer
      */
     public function listBanner(array $row): string
     {
-
         switch ($row['banner_type'])
         {
             case HtmlType::BANNER_TYPE_HTML_INTERN:

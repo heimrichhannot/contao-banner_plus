@@ -9,15 +9,13 @@
  */
 
 
-namespace HeimrichHannot\BannerPlusBundle\EventListener;
+namespace HeimrichHannot\BannerPlusBundle\EventListener\Contao;
 
 
-use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
 
-/**
- * @Hook("loadDataContainer")
- */
+#[AsHook("loadDataContainer")]
 class LoadDataContainerListener
 {
     public function __invoke(string $table): void

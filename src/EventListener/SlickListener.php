@@ -4,6 +4,7 @@ namespace HeimrichHannot\BannerPlusBundle\EventListener;
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
+use HeimrichHannot\BannerPlusBundle\Template\SlickBannerTemplate;
 use HeimrichHannot\SlickBundle\HeimrichHannotContaoSlickBundle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -39,5 +40,12 @@ class SlickListener
             ->addField('protected', 'guests', PaletteManipulator::POSITION_APPEND)
             ->addField('banner_useragent', 'protected', PaletteManipulator::POSITION_APPEND)
             ->applyToPalette('slick_newslist', 'tl_module');
+    }
+
+    #[AsHook("compileSlickNewsList")]
+    public function onCompileSlickNewsList(&$objTemplate, $frontendModule, $objModel): void
+    {
+        $slickBannerGenerator = new SlickBannerTemplate();
+        $slickBannerGenerator->generateSlickBanner($objTemplate, $frontendModule, $objModel);
     }
 }

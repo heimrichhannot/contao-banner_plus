@@ -57,7 +57,7 @@ class HtmlType implements ServiceSubscriberInterface
             $bannerUrl = $this->router->generate('bannerplus_html_banner', ['id' => $banner['id']]);
             $this->addPageEntrypoint('banner_plus-html-banner', [
                 'TL_JAVASCRIPT' => [
-                    'banner_plus-html-banner' => 'web/bundles/contaobannerplus/assets/banner_plus-html-banner.js',
+                    'banner_plus-html-banner' => 'bundles/contaobannerplus/assets/banner_plus-html-banner.js',
                 ],
             ]);
         }
