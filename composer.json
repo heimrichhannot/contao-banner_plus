@@ -21,7 +21,6 @@
         "contao/core-bundle": "^4.13",
         "bugbuster/contao-banner-bundle": ">=1.0.11 <1.4",
         "heimrichhannot/contao-encore-contracts": "^1.0",
-        "heimrichhannot/contao-utils-bundle": "^2.218",
         "symfony/event-dispatcher-contracts": "^1.0 || ^2.0 || ^3.0",
         "symfony/routing": "^5.4",
         "symfony/service-contracts": "^1.0 || ^2.0 || ^3.0"
