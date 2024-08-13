@@ -19,6 +19,8 @@ use BugBuster\Banner\BannerLogic;
 use Contao\Database;
 use Contao\FrontendTemplate;
 use Contao\StringUtil;
+use Contao\System;
+use HeimrichHannot\BannerPlusBundle\Event\BeforeRenderBannerEvent;
 use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
 
 class BannerTemplate extends BannerInsertTag
@@ -127,21 +129,25 @@ class BannerTemplate extends BannerInsertTag
                 $this->getSingleBannerFirst();
                 //Css generieren
                 $this->setCssClassIdStyle();
-                return $this->Template->parse();
             } else {
                 //single banner
                 $this->getSingleBanner();
                 //Css generieren
                 $this->setCssClassIdStyle();
-                return $this->Template->parse();
             }
         } else {
             //multi banner
             $this->getMultiBanner();
             //Css generieren
             $this->setCssClassIdStyle();
-            return $this->Template->parse();
         }
+
+        System::getContainer()->get('event_dispatcher')->dispatch(new BeforeRenderBannerEvent($this->Template, [
+            'module_id' => $this->module_id,
+            'banner_categories' => $this->banner_categories,
+        ]));
+
+        return $this->Template->parse();
 
     }
 

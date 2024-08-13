@@ -4,7 +4,7 @@ services:
     autowire: true
 
   HeimrichHannot\BannerPlusBundle\:
-    resource: '../../{Asset,EventListener}/*'
+    resource: '../../{Asset,Controller,EventListener}/*'
     autoconfigure: true
 
   HeimrichHannot\BannerPlusBundle\Type\HtmlType: ~
