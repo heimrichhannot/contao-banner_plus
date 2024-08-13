@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2024-08-13
+- Changed: dropped media query support
+
 ## [2.2.0] - 2024-08-13
 - Added: encore contracts support
 - Added: BeforeRenderBannerEvent

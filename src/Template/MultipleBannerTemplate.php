@@ -58,14 +58,4 @@ class MultipleBannerTemplate extends BannerMultiple
         $this->Template->banners = $arrBanners;
         return $this->Template;
     }
-
-    protected function setStatViewUpdate($arrBannerData, $module_id, $banner_useragent)
-    {
-        if (!SingleBannerTemplate::isVisibleBanner($this->arrCategoryValues['id'])) {
-            return;
-        }
-        parent::setStatViewUpdate($arrBannerData, $module_id, $banner_useragent);
-    }
-
-
 }

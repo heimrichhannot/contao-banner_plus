@@ -21,10 +21,8 @@ use Contao\Image;
 use Contao\Picture;
 use Contao\StringUtil;
 use Contao\System;
-use HeimrichHannot\BannerPlusBundle\Model\BannerCategoryModel;
 use HeimrichHannot\BannerPlusBundle\Model\BannerModel;
 use HeimrichHannot\BannerPlusBundle\Type\HtmlType;
-use HeimrichHannot\MediaQuery\Viewport;
 
 class SingleBannerTemplate extends BannerSingle
 {
@@ -166,27 +164,4 @@ class SingleBannerTemplate extends BannerSingle
         }
 
     }
-
-    public static function isVisibleBanner(int $categoyId): bool
-    {
-        $category = BannerCategoryModel::findByPk($categoyId);
-        if (!$category) {
-            return false;
-        }
-        if ($category->banner_mediaquery && !Viewport::matchQuery($category->banner_mediaquery))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    protected function setStatViewUpdate($arrBannerData, $module_id, $banner_useragent)
-    {
-        if (!static::isVisibleBanner($this->arrCategoryValues['id'])) {
-            return;
-        }
-        parent::setStatViewUpdate($arrBannerData, $module_id, $banner_useragent);
-    }
-
-
 }

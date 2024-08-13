@@ -36,10 +36,6 @@ Select a banner cateogy in your slick newslist module and set configuration to d
 
 Setup fireplace ads. Add additional images to the fireplace image fields in your banner config and use mod_banner_list_fireplace_ad template within module config.
 
-#### Media queries 
-
-Add media queries to banner categories, to don't have non-visible ads tracked.
-
 #### HTML Banner
 
 Setup Html ads. Select HTML file from filesystem. For better usability and file management use new directory for every new add. Css and JavaScript files can be added to the directory too and linked inside the html file.
