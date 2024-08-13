@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",(function(){document.querySelectorAll(".iframe-resized").forEach((e=>{e.addEventListener("load",(e=>{e.target.style.height=e.target.contentWindow.document.body.scrollHeight+"px",e.target.style.width=e.target.contentWindow.document.body.scrollWidth+"px",e.target.style.border="none",e.target.style.overflow="hidden"}))}))}));

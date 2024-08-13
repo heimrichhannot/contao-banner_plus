@@ -23,7 +23,7 @@ class EncoreExtension implements EncoreExtensionInterface
     public function getEntries(): array
     {
         return [
-            EncoreEntry::create('banner_plus-iframe-resizer-host', 'src/Resources/assets/js/iframe-resizer-host.js'),
+            EncoreEntry::create('banner_plus-html-banner', 'src/Resources/assets/js/html-banner.js'),
         ];
     }
 }

@@ -5,6 +5,7 @@ Encore
 .setPublicPath('/bundles/heimrichhannotbannerplusbundle/assets/')
 .setManifestKeyPrefix('bundles/heimrichhannotbannerplusbundle/assets')
 .addEntry('contao-banner-plus-bundle-be', './src/Resources/assets/js/contao-banner-plus-bundle-be.js')
+.addEntry('banner_plus-html-banner', './src/Resources/assets/js/html-banner.js')
 .disableSingleRuntimeChunk()
 .splitEntryChunks()
 .configureSplitChunks(function(splitChunks) {
